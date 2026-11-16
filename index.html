@@ -148,7 +148,6 @@
   .cal-day .dmeta { font-size: 0.64rem; color: var(--text-sub); font-variant-numeric: tabular-nums; min-height: 1.15em; }
   .cal-day.today { border-color: var(--accent-bright); box-shadow: inset 0 0 0 1px var(--accent-bright); }
   .cal-day.today .dow { color: var(--accent); font-weight: 700; }
-  .cal-day.full .dmeta { color: var(--accent); font-weight: 700; }
   .cal-day.sel { background: var(--accent); border-color: var(--accent); color: var(--surface); }
   .cal-day.sel .dow, .cal-day.sel .dmeta { color: var(--surface); opacity: 0.85; }
   .cal-card { margin-top: 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); padding: 14px 18px 16px; }
@@ -159,10 +158,7 @@
   .meal dt { font-size: 0.86rem; font-weight: 700; color: var(--accent); }
   .meal dt small { display: block; font-size: 0.72rem; font-weight: 500; color: var(--text-sub); }
   .meal dd.none { color: var(--text-sub); }
-  .cal-rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px 12px; margin-top: 10px; padding-top: 12px; border-top: 1px dashed var(--border); font-size: 0.88rem; }
-  .cal-rules label { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-  .cal-card input[type=checkbox] { flex: none; width: 18px; height: 18px; accent-color: var(--accent-bright); cursor: pointer; }
-  .cal-weight { display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 0.88rem; }
+  .cal-weight { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding-top: 12px; border-top: 1px dashed var(--border); font-size: 0.88rem; }
   .cal-weight input { width: 5.2rem; font: inherit; font-size: 0.9rem; padding: 3px 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); text-align: center; }
   .cal-sum { margin-top: 10px; font-size: 0.86rem; color: var(--text-sub); }
   .cal-all { margin-top: 8px; }
@@ -200,7 +196,7 @@
 <section class="cal-wrap" aria-label="이번 주 식단">
 <h2 id="week">이번 주 식단</h2>
 <div id="cal"><p class="caption">자바스크립트가 켜져 있어야 캘린더가 보여요.</p></div>
-<p class="caption">밤은 매일 기본 없음, 배고프면 쉐이크 250ml(물). 체크와 체중은 <strong>이 브라우저에만</strong> 저장돼요.</p>
+<p class="caption">밤은 매일 기본 없음, 배고프면 쉐이크 250ml(물). 체중은 <strong>이 브라우저에만</strong> 저장돼요.</p>
 <div class="callout"><span class="label">많이 먹은 날</span>참지 말고 <strong>다음 끼니에서 맞춰요.</strong> 저녁은 <strong>굶지 말고 가볍게</strong> — 단백질 + 채소, 밥 반 공기 이하, 국·찌개·김치 빼기, 물 넉넉히. 배가 안 고프면 삶은 계란 1~2개나 우유 한 잔이라도 먹어요. 고구마를 먹는 날은 밥 대신이에요. 저녁을 거르면 밤에 야식으로 무너지기 쉬워요.</div>
 </section>
 
@@ -519,7 +515,7 @@
   }
   var today = ymd(new Date());
 
-  /* 주간 캘린더 — 다음 주는 PLAN 에 7줄만 더하면 돼요. 체크·체중은 날짜별로 이 브라우저에 저장 */
+  /* 주간 캘린더 — 다음 주는 PLAN 에 7줄만 더하면 돼요. 체중은 날짜별로 이 브라우저에 저장 */
   var PLAN = [
     {"d": "2026-11-16", "b": "돌체라떼 + 견과", "l": "삼치구이 정식<br>밥 한 공기·된장찌개까지", "s": "우유 한 잔", "n": "점심을 더 먹은 만큼 <strong>밥 반 공기</strong>, 계란·김·채소. 국·찌개·김치 빼기. 밤에 장보기 주문", "done": ["b", "l"]},
     {"d": "2026-11-17", "b": "견과 + 흰 우유 라떼", "l": "순댓국·돼지국밥 (밥 따로, 국물 반)", "s": "구운 계란 2", "n": "닭가슴살 + 샐러드 + 군고구마"},
@@ -530,30 +526,27 @@
     {"d": "2026-11-22", "b": "삶은 계란 2 + 바나나", "l": "가족과, 같은 원칙으로", "s": "우유 + 귤", "n": "조립식 · 일주일 평균 체중 확인 · 다음 주 장보기"}
   ];
   var MEALS = [['b', '아침', '10시'], ['l', '점심', '외출'], ['s', '간식', '16시'], ['n', '저녁', '아이들과']];
-  var RULES = [['lunch14', '점심 14시 전'], ['snack1', '간식 한 번만'], ['dinner1930', '저녁 19:30 전'], ['nonight', '야식 없음'], ['walk15', '식후 걷기 15분+'], ['water', '물 1.5L+']];
   var DOW = ['일', '월', '화', '수', '목', '금', '토'];
   var KEY = 'diet:v1', OLD = 'diet-week-2026-11-16';
   var store = null;
   try { store = JSON.parse(localStorage.getItem(KEY) || 'null'); } catch (e) {}
   if (!store || typeof store !== 'object') {
     store = {};
-    try { /* 예전 주간 체크(규칙 순번 키) 옮기기 */
+    try { /* 예전 주간 체크에 적은 체중 옮기기 */
       var old = JSON.parse(localStorage.getItem(OLD) || '{}') || {};
       Object.keys(old).forEach(function (k) {
-        var p = k.split(':'), rec = store[p[0]] || (store[p[0]] = { c: {} });
-        if (p[1] === 'w') { if (old[k]) rec.w = old[k]; }
-        else if (RULES[+p[1]] && old[k]) rec.c[RULES[+p[1]][0]] = true;
+        var p = k.split(':');
+        if (p[1] === 'w' && old[k]) store[p[0]] = { w: old[k] };
       });
     } catch (e) {}
     save();
   }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(store)); } catch (e) {} }
-  function rec(d) { return store[d] || (store[d] = { c: {} }); }
+  function rec(d) { return store[d] || (store[d] = {}); }
   function parse(d) { var p = d.split('-'); return new Date(+p[0], p[1] - 1, +p[2]); }
   function addDays(d, n) { var x = parse(d); x.setDate(x.getDate() + n); return ymd(x); }
   function monday(d) { return addDays(d, -((parse(d).getDay() + 6) % 7)); }
   function md(d) { return +d.slice(5, 7) + '/' + +d.slice(8); }
-  function count(d) { var c = (store[d] && store[d].c) || {}; return RULES.filter(function (r) { return c[r[0]]; }).length; }
   var byDate = {}, weeks = [];
   PLAN.forEach(function (p) { byDate[p.d] = p; var m = monday(p.d); if (weeks.indexOf(m) < 0) weeks.push(m); });
   weeks.sort();
@@ -582,11 +575,7 @@
       h += '<div class="meal"><dt>' + m[1] + '<small>' + m[2] + '</small></dt><dd' + (v ? '' : ' class="none"') + '>' + (v || '아직 안 정했어요') +
         (p && p.done && p.done.indexOf(m[0]) >= 0 ? ' <span class="tag done">먹음</span>' : '') + '</dd></div>';
     });
-    h += '</dl><div class="cal-rules">';
-    RULES.forEach(function (x) {
-      h += '<label><input type="checkbox" data-rule="' + x[0] + '"' + (r.c[x[0]] ? ' checked' : '') + '>' + x[1] + '</label>';
-    });
-    h += '</div><label class="cal-weight">아침 체중 <input type="number" step="0.1" min="30" max="200" inputmode="decimal" placeholder="kg" value="' + (r.w || '') + '" aria-label="' + md(sel) + ' 아침 체중"> kg</label></div>';
+    h += '</dl><label class="cal-weight">아침 체중 <input type="number" step="0.1" min="30" max="200" inputmode="decimal" placeholder="kg" value="' + (r.w || '') + '" aria-label="' + md(sel) + ' 아침 체중"> kg</label></div>';
     h += '<p class="cal-sum"></p>';
     h += '<details class="cal-all"><summary>주간 전체 보기</summary><div class="table-wrap"><table><thead><tr><th>요일</th><th>아침 10시</th><th>점심 (외출)</th><th>16시</th><th>저녁 (아이들과)</th></tr></thead><tbody>';
     days.forEach(function (d) {
@@ -602,15 +591,13 @@
     meta();
   }
   function meta() {
-    var days = weekDays(), done = 0, ws = [];
+    var days = weekDays(), ws = [];
     box.querySelectorAll('.cal-day').forEach(function (b) {
-      var n = count(b.dataset.date), w = store[b.dataset.date] && store[b.dataset.date].w;
-      done += n;
-      b.querySelector('.dmeta').textContent = n ? n + '/' + RULES.length : '';
-      b.classList.toggle('full', n === RULES.length);
+      var w = parseFloat(store[b.dataset.date] && store[b.dataset.date].w);
+      b.querySelector('.dmeta').textContent = isNaN(w) ? '' : w.toFixed(1);
     });
     days.forEach(function (d) { var v = parseFloat(store[d] && store[d].w); if (!isNaN(v)) ws.push(v); });
-    box.querySelector('.cal-sum').innerHTML = '이번 주 체크 <strong>' + done + '/' + RULES.length * 7 + '</strong> · 평균 체중 <strong>' +
+    box.querySelector('.cal-sum').innerHTML = '이번 주 평균 체중 <strong>' +
       (ws.length ? (ws.reduce(function (a, b) { return a + b; }, 0) / ws.length).toFixed(1) + 'kg (' + ws.length + '일)' : '—') + '</strong>';
   }
   box.addEventListener('click', function (e) {
@@ -618,10 +605,6 @@
     if (!b) return;
     if (b.dataset.nav) { wi = Math.max(0, Math.min(weeks.length - 1, wi + +b.dataset.nav)); sel = null; render(); }
     else if (b.dataset.date) { sel = b.dataset.date; render(); }
-  });
-  box.addEventListener('change', function (e) {
-    var t = e.target;
-    if (t.dataset.rule) { rec(sel).c[t.dataset.rule] = t.checked; save(); meta(); }
   });
   box.addEventListener('input', function (e) {
     if (e.target.type === 'number') { rec(sel).w = e.target.value; save(); meta(); }
