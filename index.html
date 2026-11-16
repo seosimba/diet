@@ -165,6 +165,13 @@
   .cal-weight input { width: 5.2rem; font: inherit; font-size: 0.9rem; padding: 3px 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); text-align: center; }
   .cal-sum { margin-top: 10px; font-size: 0.86rem; color: var(--text-sub); }
   .cal-all { margin-top: 8px; }
+  /* 내 레시피 */
+  .recipe { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); padding: 12px 16px; margin: 10px 0; scroll-margin-top: 16px; }
+  .recipe summary { font-size: 1rem; font-weight: 700; color: var(--text); }
+  .recipe .r-meta { display: block; margin-top: 2px; font-size: 0.78rem; font-weight: 500; color: var(--text-sub); }
+  .recipe[open] summary { margin-bottom: 10px; }
+  .recipe ol, .recipe ul { font-size: 0.94rem; }
+  .meal dd a { font-weight: 600; }
 
   footer { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--border); font-size: 0.84rem; color: var(--text-sub); }
 
@@ -199,12 +206,106 @@
 <section class="cal-wrap" aria-label="이번 주 식단">
 <h2 id="week">이번 주 식단</h2>
 <div id="cal"><p class="caption">자바스크립트가 켜져 있어야 캘린더가 보여요.</p></div>
-<p class="caption">밤은 매일 기본 없음, 배고프면 쉐이크 250ml(물). 체중은 <strong>이 브라우저에만</strong> 저장돼요.</p>
+<p class="caption">밤은 매일 기본 없음, 정말 배고프면 <a href="#r-shake">밤 쉐이크</a>(오트 반 + 물 반). 체중은 <strong>이 브라우저에만</strong> 저장돼요.</p>
 <div class="callout"><span class="label">많이 먹은 날</span>참지 말고 <strong>다음 끼니에서 맞춰요.</strong> 저녁은 <strong>굶지 말고 가볍게</strong> — 단백질 + 채소, 밥 반 공기 이하, 국은 건더기 위주로 반 그릇·김치는 몇 조각만, 물 넉넉히. 배가 안 고프면 삶은 계란 1~2개나 우유 한 잔이라도 먹어요. 고구마를 먹는 날은 밥 대신이에요. 저녁을 거르면 밤에 야식으로 무너지기 쉬워요.</div>
+</section>
+
+<section aria-label="내 레시피">
+<h2 id="recipes">내 레시피</h2>
+<p>우리 집에 있는 재료와 그릇, 제 입맛에 맞춘 레시피예요. 캘린더의 메뉴 이름을 누르면 여기로 와요.</p>
+<div class="callout"><span class="label">계량은 이렇게</span>
+<strong>큰술</strong> = 밥숟가락 1 (15ml) · <strong>작은술</strong> = 티스푼 = 밥숟가락 1/3 (5ml) · <strong>종이컵</strong> 1컵 ≈ 180ml · <strong>버터 1티스푼</strong> = 덩어리에서 엄지 한 마디 · <strong>펜네 80g</strong> = 500g 한 봉을 6번에 나눈 양
+</div>
+
+<details class="recipe" id="r-egg-rice" open>
+<summary>⭐ 버터간장 스크램블 계란밥 <span class="r-meta">약 430kcal · 단백질 약 17g · 10분 · ✅ 11/16 먹어 봄</span></summary>
+<div class="two">
+  <div>
+    <h4>재료</h4>
+    <ul>
+      <li>생계란 2개 + 오트 음료 2큰술 + 소금 한 꼬집</li>
+      <li>햇반 작은 공기(130g) 1개</li>
+      <li>버터 1티스푼</li>
+      <li><strong>양조간장(샘표 701) 2작은술</strong> — 장아찌 간장은 새콤달콤해서 X</li>
+      <li>도시락김 1봉</li>
+    </ul>
+  </div>
+  <div>
+    <h4>만들기</h4>
+    <ol>
+      <li><strong>넓고 얕은 그릇</strong>에 계란·오트 음료·소금을 풀어요</li>
+      <li>전자레인지 <strong>40초 → 젓기 → 30초 → 젓기 → 20초씩</strong>. 몽글몽글하고 바닥 물기가 거의 없으면 멈춰요(유리병이면 20초를 두세 번 더)</li>
+      <li>햇반을 데우고 <strong>뜨거울 때 버터</strong>를 올려 녹여요</li>
+      <li>계란을 얹고 간장 2작은술, 김을 부숴 넣어 비벼요</li>
+    </ol>
+  </div>
+</div>
+<p class="caption">후추는 넣어 봤는데 별 차이 없었어요. 돌자반을 쓰는 날은 간장을 빼요(짜요). 후식 사과 1개를 더하면 약 540kcal.</p>
+</details>
+
+<details class="recipe" id="r-pasta">
+<summary>🍝 전자레인지 파스타 기본 <span class="r-meta">펜네 80g 약 290kcal · 15분 · 아직 안 해 봄</span></summary>
+<ol>
+  <li>큰 그릇에 <strong>펜네 80g + 물 종이컵 2컵(약 400ml) + 소금 한 꼬집</strong>. 랩은 안 씌워요</li>
+  <li><strong>포장에 적힌 삶는 시간 + 3~4분</strong>(보통 10~12분), 중간에 한 번 저어요. 덜 익었으면 1분씩 더</li>
+  <li>물을 따라 버리고 냉동 브로콜리 한 줌을 넣어 <strong>1분</strong></li>
+  <li>아래 소스·단백질을 넣고 섞어 <strong>30초~1분</strong></li>
+</ol>
+<p class="caption">지킬 것: 면 80g · 단백질 하나 꼭 · 크림은 시판 생크림 소스 대신 우유+치즈로. 스파게티는 그릇에 안 들어가서 펜네·푸실리가 편해요. 첫 번은 중간에 한 번 맛봐요.</p>
+</details>
+
+<details class="recipe" id="r-pasta-aglio">
+<summary>🍝 닭가슴살 알리오 올리오 <span class="r-meta">약 550kcal · 단백질 약 35g · 아직 안 해 봄</span></summary>
+<p><a href="#r-pasta">기본</a>대로 면을 익힌 뒤 <strong>올리브유 1큰술 + 마늘 후레이크 1큰술 + 소금 한 꼬집</strong>(매운 걸 원하면 페페론치노나 고춧가루 조금), <strong>닭가슴살 1팩</strong>을 찢어 넣어요.</p>
+</details>
+
+<details class="recipe" id="r-pasta-cream">
+<summary>🍝 가벼운 크림 파스타 (닭가슴살) <span class="r-meta">약 550kcal · 단백질 약 40g · 아직 안 해 봄</span></summary>
+<p>시판 생크림 소스 대신 <strong>우유 + 슬라이스 치즈</strong>로 크림 맛을 내요.</p>
+<ol>
+  <li><a href="#r-pasta">기본</a>대로 면을 익히고 물을 버린 뒤 브로콜리 1분</li>
+  <li><strong>흰 우유 100ml(종이컵 반 남짓) + 슬라이스 치즈 1장</strong> 찢어 넣기 + 소금 한 꼬집 + <strong>닭가슴살 1팩</strong> 찢어 넣기</li>
+  <li>전자레인지 <strong>1분</strong> → 저어서 치즈 녹이기 → <strong>30초</strong> 더. 1분쯤 두면 걸쭉해져요</li>
+</ol>
+<p class="caption">흰 우유가 없으면 오트 음료로 해도 돼요(살짝 고소하고 단백질은 조금 줄어요). 시판 크림 소스는 1인분에 200kcal 넘게 더해지기 쉬워요.</p>
+</details>
+
+<details class="recipe" id="r-pasta-butter">
+<summary>🍝 버터간장 참치 파스타 <span class="r-meta">약 520kcal · 단백질 약 30g · 아직 안 해 봄</span></summary>
+<p>계란밥에서 합격한 맛을 파스타로. <a href="#r-pasta">기본</a>대로 면을 익힌 뒤 <strong>버터 1티스푼 + 양조간장 2작은술 + 참치캔 1개</strong>를 섞고 김을 부숴 올려요.</p>
+</details>
+
+<details class="recipe" id="r-bread">
+<summary>🍞 부시맨브레드 아침 <span class="r-meta">약 400kcal · 단백질 약 18g · 수·토 아침</span></summary>
+<ul>
+  <li>빵은 사 오자마자 <strong>반 덩이씩 잘라 냉동</strong> → 먹을 때 토스터에</li>
+  <li>카이막 위드 허니 <strong>1큰술</strong> + 딸기잼 <strong>1작은술</strong></li>
+  <li><strong>삶은 계란 2개</strong>를 꼭 같이 · 음료는 아메리카노나 흰 우유</li>
+</ul>
+<p class="caption">빵 먹는 날은 그게 "오늘의 단 것"이라 돌체라떼는 쉬어요. 밤엔 안 먹어요.</p>
+</details>
+
+<details class="recipe" id="r-shake">
+<summary>🥤 밤 쉐이크 (오트 음료 반 + 물 반) <span class="r-meta">약 230kcal · 단백질 약 22g</span></summary>
+<ul>
+  <li>쉐이크 1스쿱 + <strong>오트 음료 150ml(종이컵 한 컵이 조금 안 되게) + 찬물이나 얼음 100ml</strong></li>
+  <li>얼음을 넣고 세게 흔들면 물을 섞어도 맛이 덜 밍밍해요</li>
+  <li>오트 음료로만 250ml면 약 300kcal, 500ml면 약 470kcal — 밤 간식으로는 많아요</li>
+  <li>흰 우유가 생기면 오트 대신 우유 150ml: 열량 비슷하고 단백질 +5g</li>
+</ul>
+<p class="caption">밤에 정말 배고플 때만. 쉐이크 1스쿱 열량·단백질은 제품 라벨 기준으로 다를 수 있어요.</p>
+</details>
+
+<details class="recipe" id="r-steam-egg">
+<summary>🥚 전자레인지 계란찜 (국 대신) <span class="r-meta">약 160kcal · 아직 안 해 봄</span></summary>
+<p>계란 2개 + 물 종이컵 반 + 소금 한 꼬집을 풀어 랩 씌우고 구멍 몇 개 → <strong>2분 30초~3분</strong>. 국 없이 밥 먹을 때 촉촉하게.</p>
+<p class="caption">⚠️ 삶은 계란을 통째로 전자레인지에 넣으면 터져요. 삶은 계란은 으깬 뒤 데워요.</p>
+</details>
 </section>
 
 <nav class="toc" aria-label="목차"><h2>목차</h2><ol>
   <li><a href="#week">이번 주 식단</a></li>
+  <li><a href="#recipes">내 레시피</a></li>
   <li><a href="#goal">목표와 숫자</a></li>
   <li><a href="#why">먹는 시간이 문제인 이유</a></li>
   <li><a href="#day">하루 틀</a></li>
@@ -383,7 +484,7 @@
 </table></div>
 <h3 id="combo">5분 조합</h3>
 <ul>
-  <li>⭐ <strong>버터간장 스크램블 계란밥</strong> — 생계란 2 + 오트 음료 2숟갈을 전자레인지(40초·젓기·30초·젓기·20초씩), 햇반 작은 공기 + 버터 1티스푼 + 양조간장 2작은술 + 김 부숴 비비기 (약 430kcal, 직접 먹어 보고 합격)</li>
+  <li>⭐ <a href="#r-egg-rice"><strong>버터간장 스크램블 계란밥</strong></a> — 햇반 작은 공기 + 계란 2 + 버터 + 간장 2작은술 + 김 (먹어 보고 합격)</li>
   <li>즉석밥 + 구운 계란 2 + 김 + 오이</li>
   <li>즉석밥 + 참치캔(기름 따라 냄) + 김 + 오이</li>
   <li>군고구마 1 + 구운 계란 2 + 우유 (밥 없는 가벼운 저녁)</li>
@@ -411,7 +512,7 @@
 </div>
 
 <h2 id="pasta">파스타 판단</h2>
-<p><strong>11/17부터 집에서 먹는 끼니는 하루 한 번 파스타로 해 봐요.</strong> 처음엔 주 1~2회로 봤는데, 지켜야 할 건 세 가지예요 — 마른 면 <strong>80g</strong>, <strong>단백질 하나 꼭</strong>(참치·닭가슴살·계란), 크림 소스는 빼기.</p>
+<p><strong>11/17부터 집에서 먹는 끼니는 하루 한 번 파스타로 해 봐요.</strong> 처음엔 주 1~2회로 봤는데, 지켜야 할 건 세 가지예요 — 마른 면 <strong>80g</strong>, <strong>단백질 하나 꼭</strong>(참치·닭가슴살·계란), 좋아하는 크림은 <strong>우유+치즈로 가볍게</strong>. 오일 파스타가 기본이에요.</p>
 <div class="two">
   <div>
     <h4>좋은 점</h4>
@@ -430,22 +531,7 @@
     </ul>
   </div>
 </div>
-<div class="callout"><span class="label">전자레인지로 (냄비 없이)</span>
-<ol>
-  <li>큰 전자레인지 그릇에 <strong>펜네 80g</strong> + 면이 잠길 만큼 물(약 400ml) + 소금 한 꼬집. 랩은 씌우지 않아요.</li>
-  <li><strong>포장에 적힌 삶는 시간 + 3~4분</strong> 돌려요(보통 10~12분). 중간에 한 번 저어 주고, 덜 익었으면 1분씩 더.</li>
-  <li>물을 따라 버리고 냉동 브로콜리 한 줌을 넣어 <strong>1분</strong>.</li>
-  <li>소스와 단백질을 넣고 섞어 <strong>30초~1분</strong> 데우면 끝.</li>
-</ol>
-스파게티는 그릇에 안 들어가서 반으로 부러뜨려야 해요. 전자레인지엔 펜네·푸실리 같은 짧은 면이 편해요.</div>
-<div class="table-wrap"><table>
-  <thead><tr><th>파스타</th><th>소스·단백질</th><th>대략</th></tr></thead>
-  <tbody>
-    <tr><td>토마토 참치</td><td>토마토 소스 3~4숟갈 + 참치캔(기름 따라냄)</td><td>약 550kcal</td></tr>
-    <tr><td>닭가슴살 알리오 올리오</td><td>올리브유 1숟갈 + 마늘 후레이크·페페론치노 + 닭가슴살 1팩</td><td>약 600kcal</td></tr>
-    <tr><td>버터간장</td><td>버터 1티스푼 + 양조간장 2작은술 + 참치캔 + 김</td><td>약 550kcal</td></tr>
-  </tbody>
-</table></div>
+<p>만드는 법과 메뉴(알리오 올리오·가벼운 크림·버터간장)는 <a href="#recipes">내 레시피</a>에 있어요.</p>
 
 <h2 id="move">겨울 운동</h2>
 <p>살을 빼는 건 주로 식단이 하고, 운동은 <strong>근육을 지키고 뺀 체중을 유지</strong>하는 역할이에요. 무릎 부담을 줄이려고 달리기·점프는 빼고, <strong>엉덩이 중심 동작 + 무릎은 얕게</strong>가 원칙이에요.</p>
@@ -494,7 +580,7 @@
 <ul>
   <li><strong>아침·간식</strong>: <strong>흰 우유</strong> 2L (오트 음료는 100ml에 단백질 1g뿐이라 단백질 칸을 못 채워요), 콜드브루 원액, 바나나, 귤, 구운 계란 30구</li>
   <li><strong>저녁</strong>: 잡곡 즉석밥 작은 공기(130g), 닭가슴살(양념 약한 것), 샐러드 믹스, 냉동 군고구마(넉넉히), 참치캔, 김, 오이(넉넉히), 냉동 브로콜리</li>
-  <li><strong>파스타</strong>: 펜네(또는 푸실리) 500g, 토마토 소스(나트륨 낮은 것), 참치캔 넉넉히, 닭가슴살, 냉동 브로콜리, 올리브유, 마늘 후레이크, 큰 전자레인지 그릇</li>
+  <li><strong>파스타</strong>: 펜네(또는 푸실리) 500g, 슬라이스 치즈, 참치캔 넉넉히, 닭가슴살, 냉동 브로콜리, 올리브유, 마늘 후레이크, 큰 전자레인지 그릇</li>
   <li><strong>물</strong>: 1L 눈금 보틀, 보리차·옥수수차 티백, 무가당 탄산수</li>
 </ul>
 <p class="caption">닭가슴살·훈제 제품은 짠 게 많아서 나트륨 표시를 한 번 확인해요.</p>
@@ -536,13 +622,13 @@
 
   /* 주간 캘린더 — 다음 주는 PLAN 에 7줄만 더하면 돼요. 체중은 날짜별로 이 브라우저에 저장 */
   var PLAN = [
-    {"d": "2026-11-16", "note": "점심을 많이 먹은 날 — 저녁은 거르지 말고 가볍게 (아이들은 먼저 먹음)", "b": "돌체라떼 + 견과", "l": "삼치구이 정식<br>밥 한 공기·된장찌개까지", "s": "우유 한 잔", "n": "<strong>버터간장 스크램블 계란밥 + 사과 1개</strong> · 약 540kcal — 맛있고 간편했어요<br>생계란 2 + 오트 음료 2숟갈 → 전자레인지 40초·젓기·30초·젓기·20초씩 (유리병은 오래 걸려요)<br>햇반 작은 공기 + 버터 1티스푼 + <strong>양조간장 2작은술</strong> + 김 · 후추는 별 차이 없었어요", "t": {"n": "혼자 · 19:30 전"}, "done": ["b", "l", "n"]},
-    {"d": "2026-11-17", "office": true, "note": "출근일 — 점심·저녁 모두 구내식당, 집에 와서는 안 먹어요", "b": "생략해도 돼요. 배고프면 나가기 전 삶은 계란 2개 (어제 남은 것)", "l": "구내식당 — 파스타가 있으면 토마토·오일로 (크림 X), 없으면 밥 2/3 + 고기·생선 반찬", "s": "회사에서 점심 먹어 보고 정해요", "n": "구내식당 — 밥 2/3, 단백질·채소 반찬<br>집에 와서는 안 먹어요. 배고프면 쉐이크 1스쿱 + 물", "t": {"b": "나가기 전", "l": "11:30", "s": "15:30", "n": "18:30"}},
-    {"d": "2026-11-18", "b": "🍞 부시맨브레드 + 카이막·잼 + 삶은 계란 2", "l": "제육 정식 또는 보쌈 정식 (쌈 많이)", "s": "우유 + 귤", "n": "🍝 <strong>토마토 참치 파스타</strong> — 펜네 80g + 토마토 소스 3~4숟갈 + 참치캔 1 + 냉동 브로콜리 한 줌 (약 550kcal)"},
-    {"d": "2026-11-19", "note": "종일 집에 있는 날 — 점심을 파스타로", "b": "견과 + 흰 우유 라떼", "l": "🍝 <strong>닭가슴살 알리오 올리오</strong> — 펜네 80g + 올리브유 1숟갈 + 마늘 후레이크·페페론치노 + 닭가슴살 1팩 + 브로콜리 (약 600kcal)", "s": "구운 계란 2", "n": "구운 계란 2 + 군고구마 1 + 오이 (밥 대신 고구마)", "t": {"l": "12:30 집"}},
-    {"d": "2026-11-20", "b": "우유 + 견과", "l": "쌀국수(고기 추가) 또는 칼국수 + 만두", "s": "우유 + 귤", "n": "🍝 가족 파스타 — 1인 펜네 80g, 토마토 소스 + 닭가슴살 + 브로콜리"},
-    {"d": "2026-11-21", "note": "9시 라이딩 — 아침을 나눠 먹어요, 물 500ml 더", "b": "라이딩 전 바나나 1 + 물<br>끝나고 🍞 부시맨브레드 반 덩이 + 카이막·잼 + 삶은 계란 2", "l": "가족과, 같은 원칙으로", "s": "과일", "n": "외식이나 배달 OK (보쌈·구이, 밥 2/3) · 맥주 1캔 + 정한 안주", "t": {"b": "8:30 · 10:30"}},
-    {"d": "2026-11-22", "b": "삶은 계란 2 + 바나나", "l": "가족과, 같은 원칙으로", "s": "우유 + 귤", "n": "🍝 <strong>버터간장 파스타</strong> — 펜네 80g + 버터 1티스푼 + 양조간장 2작은술 + 참치캔 + 김 부숴 올리기 (약 550kcal) · 일주일 평균 체중 확인 · 다음 주 장보기"}
+    {"d": "2026-11-16", "note": "점심을 많이 먹은 날 — 저녁은 거르지 말고 가볍게 (아이들은 먼저 먹음)", "b": "돌체라떼 + 견과", "l": "삼치구이 정식<br>밥 한 공기·된장찌개까지", "s": "우유 한 잔", "n": "<a href=\"#r-egg-rice\"><strong>버터간장 스크램블 계란밥</strong></a> + 사과 1개 · 약 540kcal — 맛있고 간편했어요", "t": {"n": "혼자 · 19:30 전"}, "done": ["b", "l", "n"]},
+    {"d": "2026-11-17", "office": true, "note": "출근일 — 점심·저녁 모두 구내식당, 집에 와서는 안 먹어요", "b": "생략해도 돼요. 배고프면 나가기 전 삶은 계란 2개 (어제 남은 것)", "l": "구내식당 — 파스타가 있으면 오일은 그대로, 크림이면 소스는 바닥에 남기기 · 없으면 밥 2/3 + 고기·생선 반찬", "s": "회사에서 점심 먹어 보고 정해요", "n": "구내식당 — 밥 2/3, 단백질·채소 반찬<br>집에 와서는 안 먹어요. 배고프면 쉐이크 1스쿱 + 물", "t": {"b": "나가기 전", "l": "11:30", "s": "15:30", "n": "18:30"}},
+    {"d": "2026-11-18", "b": "🍞 <a href=\"#r-bread\">부시맨브레드 아침</a> (빵 반 덩이 + 카이막·잼 + 삶은 계란 2)", "l": "제육 정식 또는 보쌈 정식 (쌈 많이)", "s": "우유 + 귤", "n": "🍝 <a href=\"#r-pasta-cream\"><strong>가벼운 크림 파스타</strong></a> (우유+치즈 + 닭가슴살) + 브로콜리 · 약 550kcal"},
+    {"d": "2026-11-19", "note": "종일 집에 있는 날 — 점심을 파스타로", "b": "견과 + 흰 우유 라떼", "l": "🍝 <a href=\"#r-pasta-aglio\"><strong>닭가슴살 알리오 올리오</strong></a> + 브로콜리 · 약 550kcal", "s": "구운 계란 2", "n": "구운 계란 2 + 군고구마 1 + 오이 (밥 대신 고구마)", "t": {"l": "12:30 집"}},
+    {"d": "2026-11-20", "b": "우유 + 견과", "l": "쌀국수(고기 추가) 또는 칼국수 + 만두", "s": "우유 + 귤", "n": "🍝 가족 크림 파스타 — <a href=\"#r-pasta-cream\">가벼운 크림</a>대로, 1인 펜네 80g + 닭가슴살 + 브로콜리"},
+    {"d": "2026-11-21", "note": "9시 라이딩 — 아침을 나눠 먹어요, 물 500ml 더", "b": "라이딩 전 바나나 1 + 물<br>끝나고 🍞 <a href=\"#r-bread\">부시맨브레드 아침</a> (빵 반 덩이 + 카이막·잼 + 삶은 계란 2)", "l": "가족과, 같은 원칙으로", "s": "과일", "n": "외식이나 배달 OK (보쌈·구이, 밥 2/3) · 맥주 1캔 + 정한 안주", "t": {"b": "8:30 · 10:30"}},
+    {"d": "2026-11-22", "b": "삶은 계란 2 + 바나나", "l": "가족과, 같은 원칙으로", "s": "우유 + 귤", "n": "🍝 <a href=\"#r-pasta-butter\"><strong>버터간장 참치 파스타</strong></a> · 약 520kcal · 일주일 평균 체중 확인 · 다음 주 장보기"}
   ];
   var MEALS = [['b', '아침', '10시'], ['l', '점심', '외출'], ['s', '간식', '16시'], ['n', '저녁', '아이들과']];
   var DOW = ['일', '월', '화', '수', '목', '금', '토'];
@@ -626,6 +712,15 @@
     if (e.target.type === 'number') { rec(sel).w = e.target.value; save(); meta(); }
   });
   render();
+
+  /* 레시피 링크를 누르면 해당 레시피를 펼쳐요 */
+  function openRecipe(id) { var el = id && document.getElementById(id); if (el && el.tagName === 'DETAILS') el.open = true; }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#r-"]');
+    if (a) openRecipe(a.getAttribute('href').slice(1));
+  });
+  window.addEventListener('hashchange', function () { openRecipe(location.hash.slice(1)); });
+  openRecipe(location.hash.slice(1));
 
   /* 목차 현재 위치 */
   var links = {};
