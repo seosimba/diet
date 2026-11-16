@@ -207,7 +207,7 @@
 <section class="cal-wrap" aria-label="이번 주 식단">
 <h2 id="week">이번 주 식단</h2>
 <div id="cal"><p class="caption">자바스크립트가 켜져 있어야 캘린더가 보여요.</p></div>
-<p class="caption"><strong>매일 8시 기상</strong> — 일찍·늦게 일어난 날은 그날 끼니 시간만 그만큼 옮겨요. 밤은 매일 기본 없음, 정말 배고프면 <a href="#r-shake">밤 쉐이크</a>(오트 반 + 물 반). 체중은 <strong>이 브라우저에만</strong> 저장돼요.</p>
+<p class="caption"><strong>매일 8시 기상 · 8시 반 아침</strong>(출근일은 9시) — 일찍·늦게 일어난 날은 그날 끼니 시간만 그만큼 옮겨요. 밤은 매일 기본 없음, 정말 배고프면 <a href="#r-shake">밤 쉐이크</a>(오트 반 + 물 반). 체중은 <strong>이 브라우저에만</strong> 저장돼요.</p>
 <div class="callout"><span class="label">많이 먹은 날</span>참지 말고 <strong>다음 끼니에서 맞춰요.</strong> 저녁은 <strong>굶지 말고 가볍게</strong> — 단백질 + 채소, 밥 반 공기 이하, 국은 건더기 위주로 반 그릇·김치는 몇 조각만, 물 넉넉히. 배가 안 고프면 삶은 계란 1~2개나 우유 한 잔이라도 먹어요. 고구마를 먹는 날은 밥 대신이에요. 저녁을 거르면 밤에 야식으로 무너지기 쉬워요.</div>
 </section>
 
@@ -371,7 +371,7 @@
 <ul>
   <li><strong>단식은 덜 먹게 만드는 도구일 뿐이에요.</strong> NEJM 2022 연구(139명, 1년)에서 같은 열량을 먹으면 식사 시간을 제한해도 체중 차이가 없었어요.</li>
   <li>단식 다음 날 점심을 많이 먹으면 하루 총량은 그대로예요.</li>
-  <li>야식만 없으면 저녁 7시 반부터 다음 날 10시까지 <strong>이미 14시간 넘게 공복</strong>이에요. 단식은 "저녁 7시 반 이후 안 먹기", 즉 야식 차단 규칙으로만 써요.</li>
+  <li>야식만 없으면 저녁 7시 반부터 다음 날 아침 8시 반까지 <strong>이미 13시간 공복</strong>이에요. 단식은 "저녁 7시 반 이후 안 먹기", 즉 야식 차단 규칙으로만 써요.</li>
 </ul>
 
 <h2 id="why">먹는 시간이 문제인 이유</h2>
@@ -394,7 +394,7 @@
 <div class="table-wrap"><table>
   <thead><tr><th>시간</th><th>무엇</th><th>대략</th><th>단백질</th></tr></thead>
   <tbody>
-    <tr><td>10시</td><td>하루견과 + 흰 우유 라떼(우유 200ml + 콜드브루), 또는 삶은 계란 2 + 바나나</td><td>250kcal</td><td>10~15g</td></tr>
+    <tr><td>8:30</td><td>하루견과 + 흰 우유 라떼(우유 200ml + 콜드브루), 또는 삶은 계란 2 + 바나나</td><td>250kcal</td><td>10~15g</td></tr>
     <tr class="hl"><td>점심 (외출)</td><td>구이·국밥·정식. <strong>밥 2/3공기</strong>, 반찬 절반은 채소, 국물 반</td><td>650kcal</td><td>30g</td></tr>
     <tr><td>16시</td><td>우유 200ml + 귤, 또는 구운 계란 2개</td><td>150kcal</td><td>6~12g</td></tr>
     <tr class="hl"><td>18:30~19:30</td><td>아이들과. 밥 2/3, 단백질 손바닥 1.5개, 채소</td><td>550kcal</td><td>30g</td></tr>
@@ -669,7 +669,7 @@
     {"d": "2026-11-21", "note": "9시 라이딩 — 아침을 나눠 먹어요, 물 500ml 더", "b": "라이딩 전 바나나 1 + 물<br>끝나고 🍞 <a href=\"#r-bread\">부시맨브레드 아침</a> (빵 반 덩이 + 카이막·잼 + 삶은 계란 2)", "l": "가족과, 같은 원칙으로", "s": "과일", "n": "외식이나 배달 OK (보쌈·구이, 밥 2/3) · 맥주 1캔 + 정한 안주", "t": {"b": "8:30 · 10:30"}},
     {"d": "2026-11-22", "b": "삶은 계란 2 + 바나나", "l": "가족과, 같은 원칙으로", "s": "우유 + 귤", "n": "🍝 <a href=\"#r-pasta-butter\"><strong>버터간장 참치 파스타</strong></a> · 약 520kcal · 일주일 평균 체중 확인 · 다음 주 장보기", "k": "같은 <a href=\"#r-pasta-butter\">버터간장 참치 파스타</a> — 냄비로 펜네 300g · 아이 둘 몫 참치 2캔 + 계란 프라이나 스크램블 하나씩 더"}
   ];
-  var MEALS = [['b', '아침', '10시'], ['l', '점심', '외출'], ['s', '간식', '16시'], ['n', '저녁', '19:30 전'], ['k', '아이들', '저녁']];
+  var MEALS = [['b', '아침', '8:30'], ['l', '점심', '외출'], ['s', '간식', '16시'], ['n', '저녁', '19:30 전'], ['k', '아이들', '저녁']];
   var DOW = ['일', '월', '화', '수', '목', '금', '토'];
   var KEY = 'diet:v1', OLD = 'diet-week-2026-11-16';
   var store = null;
@@ -723,7 +723,7 @@
     });
     h += '</dl><label class="cal-weight">아침 체중 <input type="number" step="0.1" min="30" max="200" inputmode="decimal" placeholder="kg" value="' + (r.w || '') + '" aria-label="' + md(sel) + ' 아침 체중"> kg</label></div>';
     h += '<p class="cal-sum"></p>';
-    h += '<details class="cal-all"><summary>주간 전체 보기</summary><div class="table-wrap"><table><thead><tr><th>요일</th><th>아침 10시</th><th>점심 (외출)</th><th>16시</th><th>저녁 (아이들과)</th></tr></thead><tbody>';
+    h += '<details class="cal-all"><summary>주간 전체 보기</summary><div class="table-wrap"><table><thead><tr><th>요일</th><th>아침 8:30</th><th>점심 (외출)</th><th>16시</th><th>저녁 (아이들과)</th></tr></thead><tbody>';
     days.forEach(function (d) {
       var q = byDate[d] || {};
       h += '<tr' + (d === today ? ' class="hl"' : '') + '><td>' + DOW[parse(d).getDay()] + ' ' + md(d) + (d === today ? '<span class="tag">오늘</span>' : '') + (q.office ? '<span class="tag">출근</span>' : '') + '</td>';
