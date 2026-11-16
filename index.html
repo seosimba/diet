@@ -152,6 +152,9 @@
   .cal-day.sel .dow, .cal-day.sel .dmeta { color: var(--surface); opacity: 0.85; }
   .cal-card { margin-top: 12px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); padding: 14px 18px 16px; }
   .cal-title { font-weight: 700; }
+  .cal-note { margin-top: 2px; font-size: 0.86rem; color: var(--text-sub); }
+  .cal-day .dmeta.office { color: var(--accent); font-weight: 700; }
+  .cal-day.sel .dmeta.office { color: var(--surface); }
   .meals { margin-top: 4px; }
   .meal { display: grid; grid-template-columns: 4.4rem minmax(0, 1fr); gap: 10px; padding: 9px 0; border-top: 1px solid var(--border); font-size: 0.95rem; line-height: 1.6; }
   .meal:first-child { border-top: 0; }
@@ -517,12 +520,12 @@
 
   /* 주간 캘린더 — 다음 주는 PLAN 에 7줄만 더하면 돼요. 체중은 날짜별로 이 브라우저에 저장 */
   var PLAN = [
-    {"d": "2026-11-16", "b": "돌체라떼 + 견과", "l": "삼치구이 정식<br>밥 한 공기·된장찌개까지", "s": "우유 한 잔", "n": "점심을 더 먹은 만큼 <strong>밥 반 공기</strong>, 계란·김·채소. 국·찌개·김치 빼기. 밤에 장보기 주문", "done": ["b", "l"]},
-    {"d": "2026-11-17", "b": "견과 + 흰 우유 라떼", "l": "순댓국·돼지국밥 (밥 따로, 국물 반)", "s": "구운 계란 2", "n": "닭가슴살 + 샐러드 + 군고구마"},
+    {"d": "2026-11-16", "note": "점심을 많이 먹은 날 — 저녁은 거르지 말고 가볍게", "b": "돌체라떼 + 견과", "l": "삼치구이 정식<br>밥 한 공기·된장찌개까지", "s": "우유 한 잔", "n": "<strong>먹어요.</strong> 18:30~19:30에 아이들과 같이<br>· 밥 <strong>반 공기</strong> (즉석밥이면 절반, 약 100g)<br>· 계란 2개 (삶은 것·프라이 아무거나)<br>· 김 1봉 + 집에 있는 채소 한 줌<br>· 국·찌개·김치는 빼요 — 합쳐서 약 350kcal<br>· 밤에 배고프면 쉐이크 1스쿱 + 물. 자기 전 장보기 주문", "t": {"n": "18:30~19:30"}, "done": ["b", "l"]},
+    {"d": "2026-11-17", "office": true, "note": "출근일 — 점심·저녁 모두 구내식당, 집에 와서는 안 먹어요", "b": "생략해도 돼요. 배고프면 나가기 전 우유 한 잔", "l": "구내식당 — 밥 2/3, 고기·생선 반찬 먼저, 국물은 반만", "s": "챙겨 간 하루견과 1봉 + 우유 (오후 군것질 대신)", "n": "구내식당 — 밥 2/3, 단백질·채소 반찬<br>집에 와서는 안 먹어요. 배고프면 쉐이크 1스쿱 + 물", "t": {"b": "나가기 전", "l": "11:30", "s": "15:30", "n": "18:30"}},
     {"d": "2026-11-18", "b": "🍞 부시맨브레드 + 카이막·잼 + 삶은 계란 2", "l": "제육 정식 또는 보쌈 정식 (쌈 많이)", "s": "우유 + 귤", "n": "즉석밥 + 참치캔 + 김 + 오이"},
-    {"d": "2026-11-19", "b": "견과 + 흰 우유 라떼", "l": "생선구이 (고등어·삼치)", "s": "구운 계란 2", "n": "구운 계란 2 + 군고구마 1 + 오이 (밥 대신 고구마)"},
+    {"d": "2026-11-19", "note": "종일 집에 있는 날 — 점심은 배달이나 조립식", "b": "견과 + 흰 우유 라떼", "l": "생선구이 정식 배달 (밥 2/3)<br>또는 즉석밥 2/3 + 고등어캔 + 김 + 오이", "s": "구운 계란 2", "n": "구운 계란 2 + 군고구마 1 + 오이 (밥 대신 고구마)", "t": {"l": "12:30 집"}},
     {"d": "2026-11-20", "b": "우유 + 견과", "l": "쌀국수(고기 추가) 또는 칼국수 + 만두", "s": "우유 + 귤", "n": "가족 파스타 (1인 마른 면 80g, 토마토 소스 + 참치 + 브로콜리)"},
-    {"d": "2026-11-21", "b": "🍞 부시맨브레드 + 카이막·잼 + 삶은 계란 2", "l": "가족과, 같은 원칙으로", "s": "과일", "n": "외식이나 배달 OK (보쌈·구이, 밥 2/3) · 맥주 1캔 + 정한 안주"},
+    {"d": "2026-11-21", "note": "9시 라이딩 — 아침을 나눠 먹어요, 물 500ml 더", "b": "라이딩 전 바나나 1 + 물<br>끝나고 🍞 부시맨브레드 반 덩이 + 카이막·잼 + 삶은 계란 2", "l": "가족과, 같은 원칙으로", "s": "과일", "n": "외식이나 배달 OK (보쌈·구이, 밥 2/3) · 맥주 1캔 + 정한 안주", "t": {"b": "8:30 · 10:30"}},
     {"d": "2026-11-22", "b": "삶은 계란 2 + 바나나", "l": "가족과, 같은 원칙으로", "s": "우유 + 귤", "n": "조립식 · 일주일 평균 체중 확인 · 다음 주 장보기"}
   ];
   var MEALS = [['b', '아침', '10시'], ['l', '점심', '외출'], ['s', '간식', '16시'], ['n', '저녁', '아이들과']];
@@ -565,14 +568,15 @@
     h += '<div class="cal-days">';
     days.forEach(function (d) {
       h += '<button type="button" class="cal-day' + (d === today ? ' today' : '') + (d === sel ? ' sel' : '') + '" data-date="' + d + '" aria-pressed="' + (d === sel) + '">' +
-        '<span class="dow">' + (d === today ? '오늘' : DOW[parse(d).getDay()]) + '</span><span class="dnum">' + +d.slice(8) + '</span><span class="dmeta"></span></button>';
+        '<span class="dow">' + (d === today ? '오늘' : DOW[parse(d).getDay()]) + '</span><span class="dnum">' + +d.slice(8) + '</span><span class="dmeta' + (byDate[d] && byDate[d].office ? ' office">출근' : '">') + '</span></button>';
     });
     h += '</div>';
     var p = byDate[sel], r = rec(sel);
-    h += '<div class="cal-card"><div class="cal-title">' + DOW[parse(sel).getDay()] + '요일 ' + md(sel) + (sel === today ? ' <span class="tag">오늘</span>' : '') + '</div><dl class="meals">';
+    h += '<div class="cal-card"><div class="cal-title">' + DOW[parse(sel).getDay()] + '요일 ' + md(sel) + (sel === today ? ' <span class="tag">오늘</span>' : '') + (p && p.office ? ' <span class="tag">출근</span>' : '') + '</div>' +
+      (p && p.note ? '<p class="cal-note">' + p.note + '</p>' : '') + '<dl class="meals">';
     MEALS.forEach(function (m) {
       var v = p && p[m[0]];
-      h += '<div class="meal"><dt>' + m[1] + '<small>' + m[2] + '</small></dt><dd' + (v ? '' : ' class="none"') + '>' + (v || '아직 안 정했어요') +
+      h += '<div class="meal"><dt>' + m[1] + '<small>' + ((p && p.t && p.t[m[0]]) || m[2]) + '</small></dt><dd' + (v ? '' : ' class="none"') + '>' + (v || '아직 안 정했어요') +
         (p && p.done && p.done.indexOf(m[0]) >= 0 ? ' <span class="tag done">먹음</span>' : '') + '</dd></div>';
     });
     h += '</dl><label class="cal-weight">아침 체중 <input type="number" step="0.1" min="30" max="200" inputmode="decimal" placeholder="kg" value="' + (r.w || '') + '" aria-label="' + md(sel) + ' 아침 체중"> kg</label></div>';
@@ -580,7 +584,7 @@
     h += '<details class="cal-all"><summary>주간 전체 보기</summary><div class="table-wrap"><table><thead><tr><th>요일</th><th>아침 10시</th><th>점심 (외출)</th><th>16시</th><th>저녁 (아이들과)</th></tr></thead><tbody>';
     days.forEach(function (d) {
       var q = byDate[d] || {};
-      h += '<tr' + (d === today ? ' class="hl"' : '') + '><td>' + DOW[parse(d).getDay()] + ' ' + md(d) + (d === today ? '<span class="tag">오늘</span>' : '') + '</td>';
+      h += '<tr' + (d === today ? ' class="hl"' : '') + '><td>' + DOW[parse(d).getDay()] + ' ' + md(d) + (d === today ? '<span class="tag">오늘</span>' : '') + (q.office ? '<span class="tag">출근</span>' : '') + '</td>';
       MEALS.forEach(function (m) { h += '<td>' + (q[m[0]] || '—') + (q.done && q.done.indexOf(m[0]) >= 0 ? ' <span class="tag done">먹음</span>' : '') + '</td>'; });
       h += '</tr>';
     });
@@ -592,10 +596,6 @@
   }
   function meta() {
     var days = weekDays(), ws = [];
-    box.querySelectorAll('.cal-day').forEach(function (b) {
-      var w = parseFloat(store[b.dataset.date] && store[b.dataset.date].w);
-      b.querySelector('.dmeta').textContent = isNaN(w) ? '' : w.toFixed(1);
-    });
     days.forEach(function (d) { var v = parseFloat(store[d] && store[d].w); if (!isNaN(v)) ws.push(v); });
     box.querySelector('.cal-sum').innerHTML = '이번 주 평균 체중 <strong>' +
       (ws.length ? (ws.reduce(function (a, b) { return a + b; }, 0) / ws.length).toFixed(1) + 'kg (' + ws.length + '일)' : '—') + '</strong>';
