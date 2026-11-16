@@ -23,6 +23,17 @@
   } catch (e) {}
 })();
 </script>
+<script>
+/* 탭 — 첫 화면부터 맞는 탭만 보이게(깜빡임 방지). 정확한 판정은 아래 본문 스크립트가 다시 해요. */
+(function () {
+  var h = location.hash.slice(1), t = 'week';
+  if (/^(recipes|build|r-)/.test(h)) t = 'recipes';
+  else if (h === 'shop') t = 'shop';
+  else if (h && h !== 'week') t = 'principles';
+  document.documentElement.classList.add('tabs-on');
+  document.documentElement.setAttribute('data-tab', t);
+})();
+</script>
 <title>겨울 식단 노트</title>
 <meta name="description" content="요리 없이 챙겨 먹는 재택·출근 식단과 −5kg 계획">
 <meta property="og:type" content="article">
@@ -135,6 +146,24 @@
   summary { cursor: pointer; font-size: 0.92rem; font-weight: 600; color: var(--accent); }
   details[open] summary { margin-bottom: 8px; }
 
+
+  /* 탭 — 이번 주가 항상 첫 화면, 탭 줄은 위에 붙어 있어요. JS가 꺼져 있으면 탭 없이 전부 보여요 */
+  .tabs { display: none; }
+  .tabs-on .tabs { display: flex; position: sticky; top: 0; z-index: 5; gap: 2px; margin: 0 -16px 4px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border); }
+  .tabs a { flex: 1 1 0; min-width: 0; text-align: center; padding: 12px 2px 10px; font-size: 0.95rem; font-weight: 600; color: var(--text-sub); border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
+  .tabs a:hover { text-decoration: none; color: var(--accent); }
+  .tabs a[aria-selected="true"] { color: var(--accent); border-bottom-color: var(--accent-bright); font-weight: 700; }
+  .tabs-on [data-panel] { display: none; }
+  html[data-tab="week"] [data-panel="week"], html[data-tab="recipes"] [data-panel="recipes"],
+  html[data-tab="shop"] [data-panel="shop"], html[data-tab="principles"] [data-panel="principles"] { display: block; }
+  .tabs-on .cal-wrap > h2 { display: none; }
+  .tabs-on [data-panel] > h2:first-child { margin-top: 20px; }
+  .tabs-on h2, .tabs-on h3, .tabs-on .recipe { scroll-margin-top: 64px; }
+  .tabs-on article { padding-top: 20px; }
+  header.top { padding-bottom: 6px; }
+  header.top h1 { font-size: 1.45rem; margin: 6px 0 8px; }
+  .intro { margin-top: 20px; }
+
   /* 주간 캘린더 */
   .cal-wrap h2 { margin-top: 36px; }
   .cal-head { display: flex; align-items: center; justify-content: space-between; margin: 6px 0 10px; }
@@ -196,22 +225,26 @@
 <body>
 <div class="progress" aria-hidden="true"></div>
 <article>
-<header>
+<header class="top">
   <div class="eyebrow">Diet · 2026-11-16</div>
   <h1>요리 없이 챙겨 먹는 겨울 식단</h1>
-  <p class="subtitle">재택·출근 리듬에 맞춘 식사 시간표와 −5kg 계획</p>
-  <p class="lede">요리를 못해도 뜯어서 담기만 하는 조합으로 끼니를 채우고, 메뉴보다 <strong>먹는 시간</strong>을 바로잡는 게 핵심이에요. 웹 자료와 Codex 의견을 모아 정리했어요.</p>
-  <div class="byline">시작 2026-11-16 · 목표 1월 말 · 주 0.5kg</div>
 </header>
 
-<section class="cal-wrap" aria-label="이번 주 식단">
+<nav class="tabs" role="tablist" aria-label="식단 페이지">
+  <a role="tab" href="#week" data-tab="week" aria-controls="week-panel">이번 주</a>
+  <a role="tab" href="#recipes" data-tab="recipes" aria-controls="recipes-panel">레시피</a>
+  <a role="tab" href="#shop" data-tab="shop" aria-controls="shop-panel">장보기</a>
+  <a role="tab" href="#principles" data-tab="principles" aria-controls="principles-panel">원칙·근거</a>
+</nav>
+
+<section class="cal-wrap" id="week-panel" data-panel="week" role="tabpanel" aria-label="이번 주 식단">
 <h2 id="week">이번 주 식단</h2>
 <div id="cal"><p class="caption">자바스크립트가 켜져 있어야 캘린더가 보여요.</p></div>
 <p class="caption"><strong>매일 8시 기상 · 8시 반 아침</strong> — 일찍·늦게 일어난 날은 그날 끼니 시간만 그만큼 옮겨요. 밤은 매일 기본 없음, 정말 배고프면 <a href="#r-shake">밤 쉐이크</a>(오트 반 + 물 반). 체중은 <strong>이 브라우저에만</strong> 저장돼요.</p>
 <div class="callout"><span class="label">많이 먹은 날</span>참지 말고 <strong>다음 끼니에서 맞춰요.</strong> 저녁은 <strong>굶지 말고 가볍게</strong> — 단백질 + 채소, 밥 반 공기 이하, 국은 건더기 위주로 반 그릇·김치는 몇 조각만, 물 넉넉히. 배가 안 고프면 삶은 계란 1~2개나 우유 한 잔이라도 먹어요. 고구마를 먹는 날은 밥 대신이에요. 저녁을 거르면 밤에 야식으로 무너지기 쉬워요.</div>
 </section>
 
-<section aria-label="내 레시피">
+<section id="recipes-panel" data-panel="recipes" role="tabpanel" aria-label="내 레시피">
 <h2 id="recipes">내 레시피</h2>
 <p>우리 집에 있는 재료와 그릇, 제 입맛에 맞춘 레시피예요. 캘린더의 메뉴 이름을 누르면 여기로 와요.</p>
 <div class="callout"><span class="label">계량은 이렇게</span>
@@ -339,11 +372,67 @@
 <p>계란 2개 + 물 종이컵 반 + 소금 한 꼬집을 풀어 랩 씌우고 구멍 몇 개 → <strong>2분 30초~3분</strong>. 국 없이 밥 먹을 때 촉촉하게.</p>
 <p class="caption">⚠️ 삶은 계란을 통째로 전자레인지에 넣으면 터져요. 삶은 계란은 으깬 뒤 데워요.</p>
 </details>
+
+<h2 id="build">무요리 조립식</h2>
+<p>한 끼 = <strong>주식 1 + 단백질 1 + 채소·과일 1</strong>. 하루견과처럼 뜯어서 담기만 해요.</p>
+<div class="table-wrap"><table>
+  <thead><tr><th>칸</th><th>뜯기만 하면 되는 것</th></tr></thead>
+  <tbody>
+    <tr><td>주식</td><td>잡곡 즉석밥(작은 공기 130g), 통밀빵, 냉동 군고구마, 바나나, 오트밀</td></tr>
+    <tr><td>단백질</td><td>구운 계란, 참치·고등어캔, 스트링치즈, 우유, 닭가슴살 팩</td></tr>
+    <tr><td>채소·과일</td><td>오이, 세척 샐러드, 김, 냉동 브로콜리(전자레인지 3분), 귤, 사과</td></tr>
+  </tbody>
+</table></div>
+<h3 id="combo">5분 조합</h3>
+<ul>
+  <li>⭐ <a href="#r-egg-rice"><strong>버터간장 스크램블 계란밥</strong></a> — 햇반 작은 공기 + 계란 2 + 버터 + 간장 2작은술 + 김 (먹어 보고 합격)</li>
+  <li>즉석밥 + 구운 계란 2 + 김 + 오이</li>
+  <li>즉석밥 + 참치캔(기름 따라 냄) + 김 + 오이</li>
+  <li>군고구마 1 + 구운 계란 2 + 우유 (밥 없는 가벼운 저녁)</li>
+  <li>닭가슴살 + 샐러드 + 군고구마</li>
+  <li>통밀빵 + 스트링치즈 + 바나나 + 우유</li>
+  <li>아침: 오트밀 + 우유(전자레인지 2분) + 냉동 블루베리 + 하루견과</li>
+</ul>
+<div class="two">
+  <div>
+    <h4>아이들 밥</h4>
+    <ul>
+      <li>기본: 즉석밥 + 계란 + 김 + 과일 + 우유</li>
+      <li>반찬가게·반찬 정기배송으로 주 1회 2~3가지 보충</li>
+    </ul>
+  </div>
+  <div>
+    <h4>하루견과 쓰는 법</h4>
+    <ul>
+      <li>한 봉 20g, 116~136kcal — 하루 한 봉 (<a href="#r-nuts">요일별 표</a>)</li>
+      <li>과자 <strong>대신</strong> 먹기. 끼니 대용은 안 돼요</li>
+      <li>건크랜베리·건블루베리 든 날은 당 첨가 가능성</li>
+    </ul>
+  </div>
+</div>
 </section>
 
+<section id="shop-panel" data-panel="shop" role="tabpanel" aria-label="장보기">
+<h2 id="shop">장보기 목록</h2>
+<p>쿠팡 장바구니에 고정해 두고 주 1회 같은 걸 다시 주문해요.</p>
+<ul>
+  <li><strong>아침·간식</strong>: <strong>흰 우유</strong> 2L (오트 음료는 100ml에 단백질 1g뿐이라 단백질 칸을 못 채워요), 콜드브루 원액, 바나나, 귤, 구운 계란 30구</li>
+  <li><strong>아이들 몫 (둘, 이번 주)</strong>: 햇반 큰 공기(210g) 4개, 계란 30구 하나 더, 냉동 만두 1봉, 흰 우유 2L 더, 귤, 슬라이스 치즈 6장 더, 닭가슴살 6팩 더, 참치캔 2개 더, 냉동 군고구마 넉넉히</li>
+  <li><strong>저녁</strong>: 잡곡 즉석밥 작은 공기(130g), 닭가슴살(양념 약한 것), 샐러드 믹스, 냉동 군고구마(넉넉히), 참치캔, 김, 오이(넉넉히), 냉동 브로콜리</li>
+  <li><strong>파스타</strong>: 펜네(또는 푸실리) 500g 2봉 (아이들 몫까지 한 주 약 1kg), 슬라이스 치즈, 참치캔 넉넉히, 닭가슴살, 냉동 브로콜리, 올리브유, 마늘 후레이크, 큰 전자레인지 그릇</li>
+  <li><strong>물</strong>: 1L 눈금 보틀, 보리차·옥수수차 티백, 무가당 탄산수</li>
+</ul>
+<p class="caption">닭가슴살·훈제 제품은 짠 게 많아서 나트륨 표시를 한 번 확인해요.</p>
+</section>
+
+<section id="principles-panel" data-panel="principles" role="tabpanel" aria-label="원칙·근거">
+<div class="intro" id="principles">
+  <p class="subtitle">재택·출근 리듬에 맞춘 식사 시간표와 −5kg 계획</p>
+  <p class="lede">요리를 못해도 뜯어서 담기만 하는 조합으로 끼니를 채우고, 메뉴보다 <strong>먹는 시간</strong>을 바로잡는 게 핵심이에요. 웹 자료와 Codex 의견을 모아 정리했어요.</p>
+  <div class="byline">시작 2026-11-16 · 목표 1월 말 · 주 0.5kg</div>
+</div>
+
 <nav class="toc" aria-label="목차"><h2>목차</h2><ol>
-  <li><a href="#week">이번 주 식단</a></li>
-  <li><a href="#recipes">내 레시피</a></li>
   <li><a href="#goal">목표와 숫자</a></li>
   <li><a href="#why">먹는 시간이 문제인 이유</a></li>
   <li><a href="#day">하루 틀</a></li>
@@ -351,10 +440,8 @@
   <li><a href="#night">야식과 음료</a></li>
   <li><a href="#bread">좋아하는 빵</a></li>
   <li><a href="#water">물 마시기</a></li>
-  <li><a href="#build">무요리 조립식</a></li>
   <li><a href="#pasta">파스타 판단</a></li>
   <li><a href="#move">겨울 운동</a></li>
-  <li><a href="#shop">장보기 목록</a></li>
   <li><a href="#src">출처</a></li>
 </ol></nav>
 
@@ -511,44 +598,6 @@
   </div>
 </div>
 
-<h2 id="build">무요리 조립식</h2>
-<p>한 끼 = <strong>주식 1 + 단백질 1 + 채소·과일 1</strong>. 하루견과처럼 뜯어서 담기만 해요.</p>
-<div class="table-wrap"><table>
-  <thead><tr><th>칸</th><th>뜯기만 하면 되는 것</th></tr></thead>
-  <tbody>
-    <tr><td>주식</td><td>잡곡 즉석밥(작은 공기 130g), 통밀빵, 냉동 군고구마, 바나나, 오트밀</td></tr>
-    <tr><td>단백질</td><td>구운 계란, 참치·고등어캔, 스트링치즈, 우유, 닭가슴살 팩</td></tr>
-    <tr><td>채소·과일</td><td>오이, 세척 샐러드, 김, 냉동 브로콜리(전자레인지 3분), 귤, 사과</td></tr>
-  </tbody>
-</table></div>
-<h3 id="combo">5분 조합</h3>
-<ul>
-  <li>⭐ <a href="#r-egg-rice"><strong>버터간장 스크램블 계란밥</strong></a> — 햇반 작은 공기 + 계란 2 + 버터 + 간장 2작은술 + 김 (먹어 보고 합격)</li>
-  <li>즉석밥 + 구운 계란 2 + 김 + 오이</li>
-  <li>즉석밥 + 참치캔(기름 따라 냄) + 김 + 오이</li>
-  <li>군고구마 1 + 구운 계란 2 + 우유 (밥 없는 가벼운 저녁)</li>
-  <li>닭가슴살 + 샐러드 + 군고구마</li>
-  <li>통밀빵 + 스트링치즈 + 바나나 + 우유</li>
-  <li>아침: 오트밀 + 우유(전자레인지 2분) + 냉동 블루베리 + 하루견과</li>
-</ul>
-<div class="two">
-  <div>
-    <h4>아이들 밥</h4>
-    <ul>
-      <li>기본: 즉석밥 + 계란 + 김 + 과일 + 우유</li>
-      <li>반찬가게·반찬 정기배송으로 주 1회 2~3가지 보충</li>
-    </ul>
-  </div>
-  <div>
-    <h4>하루견과 쓰는 법</h4>
-    <ul>
-      <li>한 봉 20g, 116~136kcal — 하루 한 봉 (<a href="#r-nuts">요일별 표</a>)</li>
-      <li>과자 <strong>대신</strong> 먹기. 끼니 대용은 안 돼요</li>
-      <li>건크랜베리·건블루베리 든 날은 당 첨가 가능성</li>
-    </ul>
-  </div>
-</div>
-
 <h2 id="pasta">파스타 판단</h2>
 <p><strong>11/17부터 집에서 먹는 끼니는 하루 한 번 파스타로 해 봐요.</strong> 처음엔 주 1~2회로 봤는데, 지켜야 할 건 세 가지예요 — 마른 면 <strong>80g</strong>, <strong>단백질 하나 꼭</strong>(참치·닭가슴살·계란), 좋아하는 크림은 <strong>우유+치즈로 가볍게</strong>. 오일 파스타가 기본이에요.</p>
 <div class="two">
@@ -613,17 +662,6 @@
 </div>
 <p>겨울 하체 근력은 <strong>봄 자전거 실력</strong>으로 돌아와요. 지구력 훈련에 무거운 근력운동을 더하면 사이클 기록이 좋아진다는 근거가 가장 강했어요(Rønnestad & Mujika 2013). 레그프레스 무게를 기록해 두고 봄에 비교해 봐요.</p>
 
-<h2 id="shop">장보기 목록</h2>
-<p>쿠팡 장바구니에 고정해 두고 주 1회 같은 걸 다시 주문해요.</p>
-<ul>
-  <li><strong>아침·간식</strong>: <strong>흰 우유</strong> 2L (오트 음료는 100ml에 단백질 1g뿐이라 단백질 칸을 못 채워요), 콜드브루 원액, 바나나, 귤, 구운 계란 30구</li>
-  <li><strong>아이들 몫 (둘, 이번 주)</strong>: 햇반 큰 공기(210g) 4개, 계란 30구 하나 더, 냉동 만두 1봉, 흰 우유 2L 더, 귤, 슬라이스 치즈 6장 더, 닭가슴살 6팩 더, 참치캔 2개 더, 냉동 군고구마 넉넉히</li>
-  <li><strong>저녁</strong>: 잡곡 즉석밥 작은 공기(130g), 닭가슴살(양념 약한 것), 샐러드 믹스, 냉동 군고구마(넉넉히), 참치캔, 김, 오이(넉넉히), 냉동 브로콜리</li>
-  <li><strong>파스타</strong>: 펜네(또는 푸실리) 500g 2봉 (아이들 몫까지 한 주 약 1kg), 슬라이스 치즈, 참치캔 넉넉히, 닭가슴살, 냉동 브로콜리, 올리브유, 마늘 후레이크, 큰 전자레인지 그릇</li>
-  <li><strong>물</strong>: 1L 눈금 보틀, 보리차·옥수수차 티백, 무가당 탄산수</li>
-</ul>
-<p class="caption">닭가슴살·훈제 제품은 짠 게 많아서 나트륨 표시를 한 번 확인해요.</p>
-
 <h2 id="src">출처</h2>
 <details><summary>연구·자료 링크 펼치기</summary><ul>
   <li><a href="https://medicaldialogues.in/diet-nutrition/news/calorie-restricted-diet-added-to-time-restriction-fails-to-boost-weight-loss-nejm-91790">NEJM 2022 — 시간 제한 식사 vs 칼로리 제한</a></li>
@@ -642,6 +680,7 @@
   <li><a href="https://bjsm.bmj.com/content/50/14/839.short?rss=1">무릎 앞쪽 통증 국제 합의문 2016</a> · <a href="https://www.eurekalert.org/pub_releases/2005-06/jws-tio062805.php">Messier 2005 — 감량과 무릎 하중</a></li>
   <li><a href="https://www.inigomujika.com/en/2013/08/13/optimizing-strength-training-for-running-and-cycling-endurance-performance-a-review-2/3040/">Rønnestad & Mujika 2013 — 근력운동과 사이클</a></li>
 </ul></details>
+</section>
 
 <footer>2026-11-16 기준. 웹 자료와 Codex 의견을 모아 정리했어요. 의학적 진단을 대신하지 않아요.</footer>
 </article>
@@ -753,14 +792,49 @@
   });
   render();
 
-  /* 레시피 링크를 누르면 해당 레시피를 펼쳐요 */
-  function openRecipe(id) { var el = id && document.getElementById(id); if (el && el.tagName === 'DETAILS') el.open = true; }
+  /* 탭 — 주소의 #해시가 어느 탭에 속하는지 보고 그 탭을 보여 줘요.
+     탭·레시피 링크는 보통 링크라 뒤로 가기가 그대로 동작해요. #r-… 이면 레시피를 펼쳐요. */
+  var TABS = ['week', 'recipes', 'shop', 'principles'];
+  var tabLinks = [].slice.call(document.querySelectorAll('.tabs a[role="tab"]'));
+  function setTab(t) {
+    document.documentElement.setAttribute('data-tab', t);
+    tabLinks.forEach(function (a) {
+      var on = a.getAttribute('data-tab') === t;
+      a.setAttribute('aria-selected', on ? 'true' : 'false');
+      a.tabIndex = on ? 0 : -1;
+    });
+  }
+  function route(scroll) {
+    var id = decodeURIComponent(location.hash.slice(1));
+    var el = id ? document.getElementById(id) : null;
+    var panel = el && el.closest('[data-panel]');
+    setTab(panel ? panel.getAttribute('data-panel') : 'week');
+    if (el && el.tagName === 'DETAILS') el.open = true;
+    if (!scroll) return;
+    if (!el || TABS.indexOf(id) >= 0) window.scrollTo(0, 0);
+    else el.scrollIntoView();
+  }
+  /* 브라우저 기본 앵커 스크롤 대신 직접 옮겨요 — 숨은 탭으로 갈 때 위치가 어긋나지 않게 */
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
   document.addEventListener('click', function (e) {
-    var a = e.target.closest && e.target.closest('a[href^="#r-"]');
-    if (a) openRecipe(a.getAttribute('href').slice(1));
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
+    var h = a.getAttribute('href');
+    if (h.length < 2) return;
+    e.preventDefault();
+    if (h !== location.hash) history.pushState(null, '', h);
+    route(true);
   });
-  window.addEventListener('hashchange', function () { openRecipe(location.hash.slice(1)); });
-  openRecipe(location.hash.slice(1));
+  window.addEventListener('popstate', function () { route(true); });
+  document.querySelector('.tabs').addEventListener('keydown', function (e) {
+    var i = tabLinks.indexOf(document.activeElement);
+    if (i < 0) return;
+    var j = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabLinks.length - 1 }[e.key];
+    if (j !== undefined) { e.preventDefault(); tabLinks[(j + tabLinks.length) % tabLinks.length].focus(); }
+    else if (e.key === ' ') { e.preventDefault(); tabLinks[i].click(); }
+  });
+  window.addEventListener('hashchange', function () { route(true); });
+  route(!!location.hash);
 
   /* 목차 현재 위치 */
   var links = {};
