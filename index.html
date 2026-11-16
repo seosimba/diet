@@ -242,6 +242,7 @@
 
 <h2 id="lunch">점심 외식 고르기</h2>
 <p>재택일엔 하루 한 번 나가서 점심을 먹어요. <strong>나가는 시간이 점심 시간</strong>으로 고정되고, 오가는 길이 식후 걷기가 돼요. 식후 2~5분만 걸어도 앉아 있을 때보다 혈당 상승이 줄었어요(Sports Medicine 2022, 걷기 평균 17%).</p>
+<div class="callout"><span class="label">식후 걷기</span>밥 먹고 60~90분 안에 <strong>15~20분</strong>. 많이 먹은 날은 20분. 대화할 수 있는 속도로, 무릎을 생각해 평지 위주로 걸어요. 바쁜 날도 최소 10분은 채워요.</div>
 <div class="table-wrap"><table>
   <thead><tr><th>메뉴</th><th>빈도</th><th>먹는 법</th></tr></thead>
   <tbody>
@@ -443,7 +444,7 @@
   var KEY = 'diet-week-2026-11-16';
   var days = ['2026-11-16', '2026-11-17', '2026-11-18', '2026-11-19', '2026-11-20', '2026-11-21', '2026-11-22'];
   var names = ['월', '화', '수', '목', '금', '토', '일'];
-  var rules = ['점심 14시 전', '오후 간식 한 번만', '저녁 19:30 전', '야식 없음', '식후 걷기 10분'];
+  var rules = ['점심 14시 전', '오후 간식 한 번만', '저녁 19:30 전', '야식 없음', '식후 걷기 15분+'];
   var state = {};
   try { state = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { state = {}; }
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
