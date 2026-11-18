@@ -147,7 +147,7 @@
   details[open] summary { margin-bottom: 8px; }
 
 
-  /* 탭 — 이번 주가 항상 첫 화면, 탭 줄은 위에 붙어 있어요. JS가 꺼져 있으면 탭 없이 전부 보여요 */
+  /* 탭 — 오늘부터 8일 식단이 항상 첫 화면, 탭 줄은 위에 붙어 있어요. JS가 꺼져 있으면 탭 없이 전부 보여요 */
   .tabs { display: none; }
   .tabs-on .tabs { display: flex; position: sticky; top: 0; z-index: 5; gap: 2px; margin: 0 -16px 4px; padding: 0 16px; background: var(--bg); border-bottom: 1px solid var(--border); }
   .tabs a { flex: 1 1 0; min-width: 0; text-align: center; padding: 12px 2px 10px; font-size: 0.95rem; font-weight: 600; color: var(--text-sub); border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
@@ -174,7 +174,7 @@
   .cal-range { font-weight: 700; font-variant-numeric: tabular-nums; }
   .cal-nav { font: inherit; font-size: 1.15rem; line-height: 1; width: 40px; height: 34px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); cursor: pointer; }
   .cal-nav:disabled { opacity: 0.35; cursor: default; }
-  .cal-days { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+  .cal-days { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; }
   .cal-day { font: inherit; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 0 6px; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); cursor: pointer; line-height: 1.15; }
   .cal-day .dow { font-size: 0.72rem; color: var(--text-sub); }
   .cal-day .dnum { font-size: 1.05rem; font-weight: 700; font-variant-numeric: tabular-nums; }
@@ -253,14 +253,14 @@
 </header>
 
 <nav class="tabs" role="tablist" aria-label="식단 페이지">
-  <a role="tab" href="#week" data-tab="week" aria-controls="week-panel">이번 주</a>
+  <a role="tab" href="#week" data-tab="week" aria-controls="week-panel">오늘부터</a>
   <a role="tab" href="#recipes" data-tab="recipes" aria-controls="recipes-panel">레시피</a>
   <a role="tab" href="#shop" data-tab="shop" aria-controls="shop-panel">장보기</a>
   <a role="tab" href="#principles" data-tab="principles" aria-controls="principles-panel">원칙·근거</a>
 </nav>
 
-<section class="cal-wrap" id="week-panel" data-panel="week" role="tabpanel" aria-label="이번 주 식단">
-<h2 id="week">이번 주 식단</h2>
+<section class="cal-wrap" id="week-panel" data-panel="week" role="tabpanel" aria-label="오늘부터 8일 식단">
+<h2 id="week">오늘부터 8일 식단</h2>
 <div id="cal"><p class="caption">자바스크립트가 켜져 있어야 캘린더가 보여요.</p></div>
 <p class="caption"><strong>매일 8시 기상 · 8시 반 아침</strong> — 일찍·늦게 일어난 날은 그날 끼니 시간만 그만큼 옮겨요. 아침마다 <a href="#r-creatine">크레아틴</a> 1스쿱을 물 250ml에. 밤은 기본 없음 · <a href="#r-shake">쉐이크</a>는 하루 한 잔까지 먹고 싶을 때(간식·야식 대신). 체중은 <strong>이 브라우저에만</strong> 저장돼요.</p>
 <p class="caption"><strong>지난날 회고</strong> — 하루가 끝나면 끼니 아래에 적어요. ✅ 2,000kcal 이하 · 🙂 2,000~2,300 (유지 열량 근처 — 빠지지도 찌지도 않음) · ⚠️ 2,300 넘으면 다음 날 간식 하나를 빼거나 밥을 반 공기로 — 굶지는 않아요. 1,500 아래도 ⚠️ (근육이 빠지기 쉬워요).</p>
@@ -707,7 +707,7 @@
 <p>만드는 법과 메뉴(새우·바지락 알리오 올리오·베이컨 새우 크림·버터간장 베이컨 계란)는 <a href="#recipes">내 레시피</a>에 있어요.</p>
 
 <h2 id="move">겨울 운동</h2>
-<p>운동 일정은 <a href="https://seosimba.github.io/workout/"><strong>겨울 운동 노트</strong></a>에서 이번 주·다음 주 2주 계획으로, 가는 시간까지 정해 둬요. 살을 빼는 건 주로 식단이 하고, 운동은 <strong>근육을 지키고 뺀 체중을 유지</strong>하는 역할이에요.</p>
+<p>운동 일정은 <a href="https://seosimba.github.io/workout/"><strong>겨울 운동 노트</strong></a>에서 오늘부터 8일 계획으로, 가는 시간까지 정해 둬요. 살을 빼는 건 주로 식단이 하고, 운동은 <strong>근육을 지키고 뺀 체중을 유지</strong>하는 역할이에요.</p>
 <ul>
   <li><strong>집 근력 20분 주 2회</strong> — 엉덩이 중심 하체 + 상체, 마지막 2~3회가 힘들 만큼</li>
   <li><strong>요가 주 2회</strong> · <strong>실내자전거 주 1~2회</strong>(평일) · 주말엔 동네 산 — 요일은 운동 노트에 있어요</li>
@@ -748,15 +748,18 @@
   }
   var today = ymd(new Date());
 
-  /* 주간 캘린더 — 다음 주는 PLAN 에 7줄만 더하면 돼요. 체중은 날짜별로 이 브라우저에 저장 */
+  /* 캘린더 — 오늘부터 8일(오늘 + 다음 7일)을 보여 줘요. ‹ › 는 8일씩. PLAN 에 날짜별 줄을 미리 채워 둬요. 체중은 날짜별로 이 브라우저에 저장 */
   var PLAN = [
     {"d": "2026-11-16", "note": "점심을 많이 먹은 날 — 저녁은 거르지 말고 가볍게 (아이들은 먼저 먹음)", "b": "돌체라떼 + 견과", "l": "삼치구이 정식<br>밥 한 공기·된장찌개까지", "s": "우유 한 잔", "n": "<a href=\"#r-egg-rice\"><strong>버터간장 스크램블 계란밥</strong></a> + 사과 1개 · 약 540kcal — 맛있고 간편했어요", "t": {"n": "혼자 · 19:30 전"}, "done": ["b", "l", "n"], "rv": {"v": "good", "sum": "약 1,650kcal · 단백질 약 65g", "good": "점심을 많이 먹고도 저녁을 거르지 않고 계란밥으로 가볍게 맞췄어요.", "miss": "단백질이 목표 120g의 절반쯤이에요. (간식 우유는 마신 기록이 없어 뺐어요)", "next": "줄일 필요 없이 평소대로. 끼니마다 계란·우유·새우 중 하나를 더해요."}},
     {"d": "2026-11-17", "office": true, "note": "출근일 — 점심을 많이 먹은 날: 받아 온 샌드위치는 내일 아침으로 넘기고, 저녁은 구내식당", "b": "🥜 <a href=\"#r-nuts\">화요일 견과</a> 1봉 — 8시에 깼지만 10시에 먹음", "l": "김치찌개 + 밥 한 공기 + 라면사리 조금 + 바닐라라떼 · 약 1,150kcal", "s": "☕ 17시 아메리카노 한 잔 — 점심이 커서 간식 대신 · 쿠키는 목요일, 에그마요 샌드위치는 내일 아침으로", "n": "구내식당 — 제육·모듬쌈 정식 (잡곡밥·된장국·반찬) · 약 920kcal · 단백질 35g<br>자기 전 배고파서 <a href=\"#r-shake\">쉐이크</a> 한 잔 · 약 265kcal · 단백질 약 24g", "t": {"b": "10:00", "l": "12:00", "s": "17:00", "n": "18:30"}, "done": ["b", "l", "s", "n"], "rv": {"v": "over", "sum": "약 2,450kcal · 단백질 약 100g", "good": "오후 배고픔을 아메리카노로 넘기고, 받아 온 쿠키·샌드위치는 뜯지 않았어요. 저녁 정식과 자기 전 쉐이크로 단백질을 100g 가까이 채웠어요.", "miss": "점심 한 끼(라면사리·바닐라라떼 포함)가 약 1,150kcal로 하루의 절반이에요. 쉐이크까지 더해 유지 열량을 조금 넘었어요.", "next": "굶을 필요는 없어요 — 다음 날 아침을 건너뛰고 점심을 일찍 먹는 것으로 자연히 맞춰져요."}},
-    {"d": "2026-11-18", "b": "건너뜀 — 샌드위치는 회사 냉장고에 두고 왔어요 · 점심을 12시쯤 일찍", "l": "🍲 집에 있던 즉석 소시지 부대찌개 한 봉지 + 라면 1 + 햇반 작은 공기 + 아메리카노 한 병 · 약 1,170kcal · 단백질 약 37g — 물 500ml 넣어 끓이고 국물은 남기기, 먹고 1시간 반 쉬었다 출발 · 단 것은 오늘 쉬어요 · 다음부터는 <a href=\"#r-budae-ramen\">집 방식</a>(스프 반 + 채소)으로", "s": "🚴 자전거 다녀와서 쉐이크 한 잔 → 집에 안 들러서 건너뜀 · 저녁 뒤 자판기 밀크커피 한 잔 (약 60kcal)", "n": "🍲 자전거 다녀오는 길에 밖에서 설렁탕 + 밥 한 공기(국에 말아서) + 만두 5개 · 약 1,260kcal · 단백질 약 53g — 배달 대신", "k": "아이들은 집에서 따로", "need": [["오트 음료", "", 1], ["그릭요거트 · 그래놀라", "", 1]], "note": "자전거 학원 날 — 점심을 든든히 먹어서 저녁은 밖에서 설렁탕으로 가볍게", "done": ["l", "s", "n"], "rv": {"v": "over", "sum": "약 2,490kcal · 단백질 약 90g · 실내자전거·근력으로 약 500kcal 씀", "good": "아침을 건너뛰어 어제 많이 먹은 걸 맞췄고, 점심 뒤 단 것(라떼·과자)은 안 먹었어요. 자전거로 약 500kcal를 써서 쓴 열량(약 2,700kcal)보다는 조금 덜 먹었어요.", "miss": "저녁 설렁탕에 밥과 만두 5개까지 더해져 한 끼가 약 1,260kcal예요. 운동한 날 상한(약 2,250kcal)보다 약 240kcal 많고, 점심·저녁 모두 국물 음식이라 나트륨도 많았어요.", "next": "굶지 않고 평소대로 먹어요. 아침에 배가 안 고프면 오트 라떼만. 국물 음식은 다음엔 하루 한 번만."}},
+    {"d": "2026-11-18", "b": "건너뜀 — 샌드위치는 회사 냉장고에 두고 왔어요 · 점심을 12시쯤 일찍", "l": "🍲 집에 있던 즉석 소시지 부대찌개 한 봉지 + 라면 1 + 햇반 작은 공기 + 아메리카노 한 병 · 약 1,170kcal · 단백질 약 37g — 물 500ml 넣어 끓이고 국물은 남기기, 먹고 1시간 반 쉬었다 출발 · 초코 비스킷 1개 (약 126kcal) · 다음부터는 <a href=\"#r-budae-ramen\">집 방식</a>(스프 반 + 채소)으로", "s": "🚴 자전거 다녀와서 쉐이크 한 잔 → 집에 안 들러서 건너뜀 · 저녁 뒤 자판기 밀크커피 한 잔 (약 60kcal)", "n": "🍲 자전거 다녀오는 길에 밖에서 설렁탕 + 밥 한 공기(국에 말아서) + 만두 5개 · 약 1,260kcal · 단백질 약 53g — 배달 대신", "k": "아이들은 집에서 따로", "need": [["오트 음료", "", 1], ["그릭요거트 · 그래놀라", "", 1]], "note": "자전거 학원 날 — 점심을 든든히 먹어서 저녁은 밖에서 설렁탕으로 가볍게", "done": ["l", "s", "n"], "rv": {"v": "over", "sum": "약 2,620kcal · 단백질 약 90g · 실내자전거·근력으로 약 500kcal 씀", "good": "아침을 건너뛰어 어제 많이 먹은 걸 맞췄고, 돌체라떼는 안 마셨어요. 자전거로 약 500kcal를 써서 쓴 열량(약 2,700kcal)과 거의 같게 먹었어요.", "miss": "저녁 설렁탕에 밥과 만두 5개까지 더해져 한 끼가 약 1,260kcal예요. 점심 뒤 초코 비스킷까지 운동한 날 상한(약 2,250kcal)보다 약 370kcal 많고, 점심·저녁 모두 국물 음식이라 나트륨도 많았어요.", "next": "굶지 않고 평소대로 먹어요. 아침에 배가 안 고프면 오트 라떼만. 국물 음식은 다음엔 하루 한 번만. 내일 아침 체중은 짠 음식 때문에 조금 높게 나와도 괜찮아요 — 주 평균으로 봐요."}},
     {"d": "2026-11-19", "note": "종일 집에 있는 날 — 당분간 새로 사지 않고 집에 있는 걸로 먹어요", "b": "🥜 <a href=\"#r-nuts\">목요일 견과</a> + 오트 라떼", "l": "🍚 집밥 — 햇반 + 집에 있는 반찬 + 계란 2 (반찬 보고 정해요)", "s": "🍪 화요일에 받은 쿠키 1개 + 삶은 계란 2", "n": "🍚 집에 있는 반찬으로 — 반찬 보고 정해요 (밥은 작은 공기)", "t": {"l": "12:30 집"}, "k": "같은 집밥 — 아이 둘 몫은 넉넉히 (밥·계란 더)", "need": [["목요일 견과", "", 1], ["오트 음료", "", 1], ["계란 · 햇반 (남은 개수 확인)", "", 1], ["쿠키", "", 1]]},
     {"d": "2026-11-20", "b": "오트 라떼 + 🥜 <a href=\"#r-nuts\">금요일 견과</a>", "l": "쌀국수(고기 추가) 또는 칼국수 + 만두", "s": "🥣 <a href=\"#r-yogurt\">그릭요거트 볼</a> (그래놀라 3숟갈)", "n": "🍚 집에 있는 반찬으로 — 반찬 보고 정해요", "k": "같은 집밥 — 아이 둘 몫은 넉넉히", "need": [["금요일 견과", "", 1], ["그릭요거트 · 그래놀라", "", 1], ["오트 음료", "", 1]], "note": "파스타는 당분간 쉬어요 — 집에 있는 걸로"},
     {"d": "2026-11-21", "note": "11시 동네 산 등산 — 라이딩은 쉬어요(최고 1℃ 예보) · 물 500ml 더 챙기기", "b": "🍞 집에 빵이 남아 있으면 <a href=\"#r-bread\">빵 아침</a>, 없으면 삶은 계란 2 + 🥜 토요일 견과 + 오트 라떼", "l": "등산 다녀와서 가족과, 같은 원칙으로", "s": "집에 있는 과일이나 <a href=\"#r-yogurt\">그릭요거트 볼</a>", "n": "외식이나 배달 OK (보쌈·구이, 밥 2/3) · 맥주 1캔 + 정한 안주", "need": [["계란 · 토요일 견과", "", 1], ["오트 음료", "", 1]]},
-    {"d": "2026-11-22", "b": "삶은 계란 2 + 🥜 <a href=\"#r-nuts\">일요일 견과</a>", "l": "가족과, 같은 원칙으로", "s": "오트 라떼 또는 <a href=\"#r-yogurt\">그릭요거트 볼</a>", "n": "🍚 집에 있는 반찬으로 — 반찬 보고 정해요 · 일주일 평균 체중 확인", "k": "같은 집밥 — 아이 둘 몫은 넉넉히", "need": [["계란 · 일요일 견과", "", 1], ["오트 음료", "", 1]]}
+    {"d": "2026-11-22", "b": "삶은 계란 2 + 🥜 <a href=\"#r-nuts\">일요일 견과</a>", "l": "가족과, 같은 원칙으로", "s": "오트 라떼 또는 <a href=\"#r-yogurt\">그릭요거트 볼</a>", "n": "🍚 집에 있는 반찬으로 — 반찬 보고 정해요 · 일주일 평균 체중 확인", "k": "같은 집밥 — 아이 둘 몫은 넉넉히", "need": [["계란 · 일요일 견과", "", 1], ["오트 음료", "", 1]]},
+    {"d": "2026-11-23", "note": "요가 + 근력 A 날 — 장보기 없이 집에 있는 걸로", "b": "🥜 <a href=\"#r-nuts\">월요일 견과</a> + 오트 라떼 — 9시 요가 전이라 가볍게", "l": "🍚 집밥 — 햇반 + 집에 있는 반찬 + 계란 2 (반찬 보고 정해요)", "s": "💪 근력 A 끝나고 <a href=\"#r-shake\">쉐이크</a> 한 잔", "n": "🍚 집에 있는 반찬으로 — 반찬 보고 정해요 (밥은 작은 공기, 국은 건더기 위주 반 그릇)", "t": {"l": "12:30 집", "s": "16시 (근력 뒤)"}, "k": "같은 집밥 — 아이 둘 몫은 넉넉히 (밥·계란 더)", "need": [["월요일 견과", "", 1], ["오트 음료", "", 1], ["계란 · 햇반 (남은 개수 확인)", "", 1], ["쉐이크 파우더", "", 1]]},
+    {"d": "2026-11-24", "office": true, "note": "출근일 — 회사에서 먹는 끼니는 먹고 싶은 걸로, 사진 찍어 두기", "b": "🥜 <a href=\"#r-nuts\">화요일 견과</a> + 삶은 계란 2 — 8:30", "l": "회사에서 먹고 싶은 걸로 · 사진", "s": "회사에서 점심 먹어 보고 정해요", "n": "구내식당 — 먹고 싶은 걸로 · 사진", "t": {"l": "11:30~12시", "n": "18:30"}, "need": [["화요일 견과", "", 1], ["계란", "", 1]]},
+    {"d": "2026-11-25", "note": "자전거 학원 날 — 12시 점심, 12:30 출발, 15:45쯤 돌아와요", "b": "🥜 <a href=\"#r-nuts\">수요일 견과</a> + 오트 라떼", "l": "🍚 12시 집밥 — 햇반 작은 공기 + 집에 있는 반찬 + 계란 2 · 30분 뒤 출발이라 너무 배부르지 않게", "s": "🚴 자전거 탈 때 사 둔 스포츠음료 · 다녀와서 <a href=\"#r-shake\">쉐이크</a> 한 잔", "n": "🍚 집에 있는 반찬으로 — 반찬 보고 정해요", "t": {"l": "12:00 집", "s": "16시 (다녀와서)"}, "k": "같은 집밥 — 아이 둘 몫은 넉넉히", "need": [["수요일 견과", "", 1], ["오트 음료", "", 1], ["계란 · 햇반", "", 1], ["쉐이크 파우더", "", 1]]}
   ];
   var MEALS = [['b', '아침', '8:30'], ['l', '점심', '외출'], ['s', '간식', '16시'], ['n', '저녁', '19:30 전'], ['k', '아이들', '저녁']];
   var DOW = ['일', '월', '화', '수', '목', '금', '토'];
@@ -778,13 +781,10 @@
   function rec(d) { return store[d] || (store[d] = {}); }
   function parse(d) { var p = d.split('-'); return new Date(+p[0], p[1] - 1, +p[2]); }
   function addDays(d, n) { var x = parse(d); x.setDate(x.getDate() + n); return ymd(x); }
-  function monday(d) { return addDays(d, -((parse(d).getDay() + 6) % 7)); }
   function md(d) { return +d.slice(5, 7) + '/' + +d.slice(8); }
-  var byDate = {}, weeks = [];
-  PLAN.forEach(function (p) { byDate[p.d] = p; var m = monday(p.d); if (weeks.indexOf(m) < 0) weeks.push(m); });
-  weeks.sort();
-  var wi = weeks.indexOf(monday(today));
-  if (wi < 0) wi = today > weeks[weeks.length - 1] ? weeks.length - 1 : 0;
+  var SPAN = 8, off = 0;
+  var byDate = {}, first = PLAN[0].d, last = PLAN[0].d;
+  PLAN.forEach(function (p) { byDate[p.d] = p; if (p.d < first) first = p.d; if (p.d > last) last = p.d; });
   var sel = null;
   var box = document.getElementById('cal');
 
@@ -810,13 +810,13 @@
     return '<section class="cal-prep" aria-label="내일 준비물"><span class="rv-badge">🛒 내일(' + DOW[parse(nx).getDay()] + ' ' + md(nx) + ') 먹을 것 — ' + (buy ? '없으면 미리 사 두기</span><ul>' + buy + '</ul>' : '살 것 없음 ✅</span>') +
       '<p class="prep-have">' + (have.length ? '집에 있는 것: ' + have.join(' · ') + ' · ' : '') + '한 주 전체는 <a href="#shop">장보기</a></p></section>';
   }
-  function weekDays() { var a = []; for (var i = 0; i < 7; i++) a.push(addDays(weeks[wi], i)); return a; }
+  function weekDays() { var s = addDays(today, off * SPAN), a = []; for (var i = 0; i < SPAN; i++) a.push(addDays(s, i)); return a; }
   function render() {
     var days = weekDays();
     if (days.indexOf(sel) < 0) sel = days.indexOf(today) >= 0 ? today : days[0];
-    var h = '<div class="cal-head"><button type="button" class="cal-nav" data-nav="-1" aria-label="지난주"' + (wi ? '' : ' disabled') + '>‹</button>' +
-      '<div class="cal-range">' + md(days[0]) + ' – ' + md(days[6]) + '</div>' +
-      '<button type="button" class="cal-nav" data-nav="1" aria-label="다음 주"' + (wi < weeks.length - 1 ? '' : ' disabled') + '>›</button></div>';
+    var h = '<div class="cal-head"><button type="button" class="cal-nav" data-nav="-1" aria-label="앞의 8일"' + (days[0] > first ? '' : ' disabled') + '>‹</button>' +
+      '<div class="cal-range">' + md(days[0]) + ' – ' + md(days[SPAN - 1]) + '</div>' +
+      '<button type="button" class="cal-nav" data-nav="1" aria-label="다음 8일"' + (days[SPAN - 1] < last ? '' : ' disabled') + '>›</button></div>';
     h += '<div class="cal-days">';
     days.forEach(function (d) {
       h += '<button type="button" class="cal-day' + (d === today ? ' today' : '') + (d === sel ? ' sel' : '') + '" data-date="' + d + '" aria-pressed="' + (d === sel) + '">' +
@@ -832,9 +832,9 @@
       h += '<div class="meal' + (m[0] === 'k' ? ' kids' : '') + '"><dt>' + m[1] + '<small>' + ((p && p.t && p.t[m[0]]) || m[2]) + '</small></dt><dd' + (v ? '' : ' class="none"') + '>' + (v || '아직 안 정했어요') +
         (p && p.done && p.done.indexOf(m[0]) >= 0 ? ' <span class="tag done">먹음</span>' : '') + '</dd></div>';
     });
-    h += '</dl>' + review(p) + prep(sel) + '<label class="cal-weight">아침 체중 <input type="number" step="0.1" min="30" max="200" inputmode="decimal" placeholder="kg" value="' + (r.w || '') + '" aria-label="' + md(sel) + ' 아침 체중"> kg</label></div>';
+    h += '</dl>' + review(p) + prep(sel) + '<label class="cal-weight">아침 체중 <small>일어나 화장실 다녀온 뒤 · 먹기 전</small> <input type="number" step="0.1" min="30" max="200" inputmode="decimal" placeholder="kg" value="' + (r.w || '') + '" aria-label="' + md(sel) + ' 아침 체중"> kg</label></div>';
     h += '<p class="cal-sum"></p>';
-    h += '<details class="cal-all"><summary>주간 전체 보기</summary><div class="table-wrap"><table><thead><tr><th>요일</th><th>아침 8:30</th><th>점심 (외출)</th><th>16시</th><th>저녁 (아이들과)</th></tr></thead><tbody>';
+    h += '<details class="cal-all"><summary>8일 전체 보기</summary><div class="table-wrap"><table><thead><tr><th>요일</th><th>아침 8:30</th><th>점심 (외출)</th><th>16시</th><th>저녁 (아이들과)</th></tr></thead><tbody>';
     days.forEach(function (d) {
       var q = byDate[d] || {};
       h += '<tr' + (d === today ? ' class="hl"' : '') + '><td>' + DOW[parse(d).getDay()] + ' ' + md(d) + (d === today ? '<span class="tag">오늘</span>' : '') + (q.office ? '<span class="tag">출근</span>' : '') + '</td>';
@@ -848,15 +848,15 @@
     meta();
   }
   function meta() {
-    var days = weekDays(), ws = [];
-    days.forEach(function (d) { var v = parseFloat(store[d] && store[d].w); if (!isNaN(v)) ws.push(v); });
-    box.querySelector('.cal-sum').innerHTML = '이번 주 평균 체중 <strong>' +
+    var days = weekDays(), end = days[SPAN - 1] < today ? days[SPAN - 1] : today, ws = [];
+    for (var i = 6; i >= 0; i--) { var v = parseFloat(store[addDays(end, -i)] && store[addDays(end, -i)].w); if (!isNaN(v)) ws.push(v); }
+    box.querySelector('.cal-sum').innerHTML = '최근 7일(' + md(addDays(end, -6)) + '–' + md(end) + ') 평균 체중 <strong>' +
       (ws.length ? (ws.reduce(function (a, b) { return a + b; }, 0) / ws.length).toFixed(1) + 'kg (' + ws.length + '일)' : '—') + '</strong>';
   }
   box.addEventListener('click', function (e) {
     var b = e.target.closest('button');
     if (!b) return;
-    if (b.dataset.nav) { wi = Math.max(0, Math.min(weeks.length - 1, wi + +b.dataset.nav)); sel = null; render(); }
+    if (b.dataset.nav) { off += +b.dataset.nav; sel = null; render(); }
     else if (b.dataset.date) { sel = b.dataset.date; render(); }
   });
   box.addEventListener('input', function (e) {
