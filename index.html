@@ -194,7 +194,8 @@
   .meal dt { font-size: 0.86rem; font-weight: 700; color: var(--accent); }
   .meal dt small { display: block; font-size: 0.72rem; font-weight: 500; color: var(--text-sub); }
   .meal dd.none { color: var(--text-sub); }
-  .cal-weight { display: flex; align-items: center; gap: 8px; margin-top: 10px; padding-top: 12px; border-top: 1px dashed var(--border); font-size: 0.88rem; }
+  .cal-weight small { flex-basis: 100%; font-size: 0.78rem; color: var(--text-sub); }
+  .cal-weight { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 10px; padding-top: 12px; border-top: 1px dashed var(--border); font-size: 0.88rem; }
   .cal-weight input { width: 5.2rem; font: inherit; font-size: 0.9rem; padding: 3px 8px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--text); text-align: center; }
   .cal-review { margin-top: 12px; padding: 10px 12px; border-radius: 10px; background: var(--accent-tint); font-size: 0.9rem; line-height: 1.65; }
   .cal-review.v-ok { background: var(--code-bg); }
@@ -783,8 +784,25 @@
   function addDays(d, n) { var x = parse(d); x.setDate(x.getDate() + n); return ymd(x); }
   function md(d) { return +d.slice(5, 7) + '/' + +d.slice(8); }
   var SPAN = 8, off = 0;
-  var byDate = {}, first = PLAN[0].d, last = PLAN[0].d;
-  PLAN.forEach(function (p) { byDate[p.d] = p; if (p.d < first) first = p.d; if (p.d > last) last = p.d; });
+  var byDate = {}, first = PLAN.length ? PLAN[0].d : today;
+  PLAN.forEach(function (p) { if (p && p.d) { byDate[p.d] = p; if (p.d < first) first = p.d; } });
+  /* 기본 틀 — PLAN 에 아직 줄이 없는 날은 요일별 기본 끼니를 보여 줘요(날이 지나도 화면이 비지 않게).
+     당분간 장보기 없이 집에 있는 것으로 짠 틀이에요. 장보기를 다시 하면 여기도 고쳐요. */
+  var NUT = ['일요일', '월요일', '화요일', '수요일', '목요일', '금요일', '토요일'];
+  function basePlan(d) {
+    var w = parse(d).getDay(), office = w === 2, wkend = w === 0 || w === 6;
+    var nut = '🥜 <a href="#r-nuts">' + NUT[w] + ' 견과</a>';
+    return { d: d, base: true, office: office,
+      note: '기본 틀 — 아직 따로 정하지 않은 날이에요' + (office ? ' · 출근일' : ''),
+      b: office ? nut + ' + 삶은 계란 2' : nut + ' + 오트 라떼',
+      l: office ? '회사에서 먹고 싶은 걸로 · 사진' : wkend ? '가족과, 같은 원칙으로' : '🍚 집밥 — 햇반 + 집에 있는 반찬 + 계란 2',
+      s: office ? '회사에서 점심 먹어 보고 정해요' : w === 1 || w === 4 ? '💪 근력 끝나고 <a href="#r-shake">쉐이크</a> 한 잔' : w === 3 ? '🚴 자전거 다녀와서 <a href="#r-shake">쉐이크</a> 한 잔' : '<a href="#r-yogurt">그릭요거트 볼</a> 또는 오트 라떼',
+      n: office ? '구내식당 — 먹고 싶은 걸로 · 사진' : '🍚 집에 있는 반찬으로 (밥은 작은 공기)',
+      k: office ? '' : '같은 집밥 — 아이 둘 몫은 넉넉히',
+      t: office ? { l: '11:30~12시', n: '18:30' } : {} };
+  }
+  function dayPlan(d) { return d < first ? null : byDate[d] || basePlan(d); }
+  function ate(p, k) { return !!(p && Array.isArray(p.done) && p.done.indexOf(k) >= 0); }
   var sel = null;
   var box = document.getElementById('cal');
 
@@ -793,14 +811,14 @@
   function review(p) {
     var v = p && p.rv;
     if (!v) return '';
-    return '<section class="cal-review v-' + v.v + '" aria-label="회고"><div class="rv-head"><span class="rv-badge">회고 · ' + RV[v.v] + '</span><span class="rv-num">' + v.sum + '</span></div>' +
+    return '<section class="cal-review v-' + v.v + '" aria-label="회고"><div class="rv-head"><span class="rv-badge">회고 · ' + (RV[v.v] || v.v) + '</span><span class="rv-num">' + v.sum + '</span></div>' +
       (v.good ? '<p><strong>잘한 점</strong> ' + v.good + '</p>' : '') +
       (v.miss ? '<p><strong>아쉬운 점</strong> ' + v.miss + '</p>' : '') +
       (v.next ? '<p><strong>다음 날은</strong> ' + v.next + '</p>' : '') + '</section>';
   }
   /* 내일 준비물 — 오늘·앞날 카드에 다음 날 PLAN의 need([재료, 쓰는 곳, 집에 있음?])를 보여 줘요 */
   function prep(d) {
-    var nx = addDays(d, 1), q = byDate[nx];
+    var nx = addDays(d, 1), q = dayPlan(nx);
     if (d < today || !q || !q.need) return '';
     var buy = '', have = [];
     q.need.forEach(function (x) {
@@ -812,33 +830,38 @@
   }
   function weekDays() { var s = addDays(today, off * SPAN), a = []; for (var i = 0; i < SPAN; i++) a.push(addDays(s, i)); return a; }
   function render() {
+    try { draw(); } catch (e) {
+      box.innerHTML = '<p class="cal-note">캘린더를 그리다 문제가 생겼어요. 새로고침해 보고, 그래도 안 되면 알려 주세요. (' + String(e && e.message || e) + ')</p>';
+    }
+  }
+  function draw() {
     var days = weekDays();
     if (days.indexOf(sel) < 0) sel = days.indexOf(today) >= 0 ? today : days[0];
     var h = '<div class="cal-head"><button type="button" class="cal-nav" data-nav="-1" aria-label="앞의 8일"' + (days[0] > first ? '' : ' disabled') + '>‹</button>' +
       '<div class="cal-range">' + md(days[0]) + ' – ' + md(days[SPAN - 1]) + '</div>' +
-      '<button type="button" class="cal-nav" data-nav="1" aria-label="다음 8일"' + (days[SPAN - 1] < last ? '' : ' disabled') + '>›</button></div>';
+      '<button type="button" class="cal-nav" data-nav="1" aria-label="다음 8일">›</button></div>';
     h += '<div class="cal-days">';
     days.forEach(function (d) {
       h += '<button type="button" class="cal-day' + (d === today ? ' today' : '') + (d === sel ? ' sel' : '') + '" data-date="' + d + '" aria-pressed="' + (d === sel) + '">' +
-        '<span class="dow">' + (d === today ? '오늘' : DOW[parse(d).getDay()]) + '</span><span class="dnum">' + +d.slice(8) + '</span><span class="dmeta' + (byDate[d] && byDate[d].office ? ' office">출근' : '">') + '</span></button>';
+        '<span class="dow">' + (d === today ? '오늘' : DOW[parse(d).getDay()]) + '</span><span class="dnum">' + +d.slice(8) + '</span><span class="dmeta' + (dayPlan(d) && dayPlan(d).office ? ' office">출근' : '">') + '</span></button>';
     });
     h += '</div>';
-    var p = byDate[sel], r = rec(sel);
-    h += '<div class="cal-card"><div class="cal-title">' + DOW[parse(sel).getDay()] + '요일 ' + md(sel) + (sel === today ? ' <span class="tag">오늘</span>' : '') + (p && p.office ? ' <span class="tag">출근</span>' : '') + '</div>' +
+    var p = dayPlan(sel), r = rec(sel);
+    h += '<div class="cal-card"><div class="cal-title">' + DOW[parse(sel).getDay()] + '요일 ' + md(sel) + (sel === today ? ' <span class="tag">오늘</span>' : '') + (p && p.office ? ' <span class="tag">출근</span>' : '') + (p && p.base ? ' <span class="tag">기본 틀</span>' : '') + '</div>' +
       (p && p.note ? '<p class="cal-note">' + p.note + '</p>' : '') + '<dl class="meals">';
     MEALS.forEach(function (m) {
       var v = p && p[m[0]];
       if (m[0] === 'k' && !v) return;
       h += '<div class="meal' + (m[0] === 'k' ? ' kids' : '') + '"><dt>' + m[1] + '<small>' + ((p && p.t && p.t[m[0]]) || m[2]) + '</small></dt><dd' + (v ? '' : ' class="none"') + '>' + (v || '아직 안 정했어요') +
-        (p && p.done && p.done.indexOf(m[0]) >= 0 ? ' <span class="tag done">먹음</span>' : '') + '</dd></div>';
+        (ate(p, m[0]) ? ' <span class="tag done">먹음</span>' : '') + '</dd></div>';
     });
-    h += '</dl>' + review(p) + prep(sel) + '<label class="cal-weight">아침 체중 <small>일어나 화장실 다녀온 뒤 · 먹기 전</small> <input type="number" step="0.1" min="30" max="200" inputmode="decimal" placeholder="kg" value="' + (r.w || '') + '" aria-label="' + md(sel) + ' 아침 체중"> kg</label></div>';
+    h += '</dl>' + review(p) + prep(sel) + '<label class="cal-weight">아침 체중 <input type="number" step="0.1" min="30" max="200" inputmode="decimal" placeholder="kg" value="' + (r.w || '') + '" aria-label="' + md(sel) + ' 아침 체중"> kg <small>일어나 화장실 다녀온 뒤 · 먹기 전에 재요</small></label></div>';
     h += '<p class="cal-sum"></p>';
     h += '<details class="cal-all"><summary>8일 전체 보기</summary><div class="table-wrap"><table><thead><tr><th>요일</th><th>아침 8:30</th><th>점심 (외출)</th><th>16시</th><th>저녁 (아이들과)</th></tr></thead><tbody>';
     days.forEach(function (d) {
-      var q = byDate[d] || {};
+      var q = dayPlan(d) || {};
       h += '<tr' + (d === today ? ' class="hl"' : '') + '><td>' + DOW[parse(d).getDay()] + ' ' + md(d) + (d === today ? '<span class="tag">오늘</span>' : '') + (q.office ? '<span class="tag">출근</span>' : '') + '</td>';
-      MEALS.slice(0, 4).forEach(function (m) { h += '<td>' + (q[m[0]] || '—') + (q.done && q.done.indexOf(m[0]) >= 0 ? ' <span class="tag done">먹음</span>' : '') + '</td>'; });
+      MEALS.slice(0, 4).forEach(function (m) { h += '<td>' + (q[m[0]] || '—') + (ate(q, m[0]) ? ' <span class="tag done">먹음</span>' : '') + '</td>'; });
       h += '</tr>';
     });
     h += '</tbody></table></div></details>';
